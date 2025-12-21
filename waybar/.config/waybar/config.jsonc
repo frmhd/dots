@@ -12,8 +12,8 @@
   ],
   "modules-right": [
     "group/tray-expander",
-    "bluetooth",
     "niri/language",
+    "bluetooth",
     "network",
     "pulseaudio",
     "cpu",

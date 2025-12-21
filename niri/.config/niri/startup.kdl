@@ -2,3 +2,4 @@
 
 spawn-at-startup "waybar"
 spawn-at-startup "swaybg" "-i" "~/Pictures/walls/1-scenery-pink-lakeside-sunset-lake-landscape-scenic-panorama-7680x3215-144.png" "-m" "fill"
+spawn-at-startup "walker" "--gapplication-service"

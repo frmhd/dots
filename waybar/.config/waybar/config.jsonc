@@ -20,8 +20,8 @@
     "memory",
   ],
   "mpris": {
-    "format": "|  {player_icon} {title} - {artist}",
-    "format-paused": "|  {status_icon} {title} - {artist}",
+    "format": "|  {player_icon}  {title} - {artist}",
+    "format-paused": "|  {status_icon}  <i>{title} - {artist}</i>",
     "player-icons": {
       "default": "▶",
       "spotify": "",

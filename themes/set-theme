@@ -37,3 +37,17 @@ swayosd-server &
 
 # Restart background
 killall swaybg && swaybg -i $HOME/.config/omarchy/current/background -m fill &
+
+CHROMIUM_THEME=~/.config/omarchy/current/theme/chromium.theme
+
+if [[ -f $CHROMIUM_THEME ]]; then
+THEME_RGB_COLOR=$(<$CHROMIUM_THEME)
+THEME_HEX_COLOR=$(printf '#%02x%02x%02x' ${THEME_RGB_COLOR//,/ })
+else
+# Use a default, neutral grey if theme doesn't have a color
+THEME_RGB_COLOR="28,32,39"
+THEME_HEX_COLOR="#1c2027"
+fi
+
+echo "{\"BrowserThemeColor\": \"$THEME_HEX_COLOR\"}" | tee "/etc/brave/policies/managed/color.json" >/dev/null
+brave --refresh-platform-policy --no-startup-window

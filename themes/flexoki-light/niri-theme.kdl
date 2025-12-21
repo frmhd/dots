@@ -1,0 +1,5 @@
+layout {
+    border {
+        active-color "#205EA6ee"
+    }
+}

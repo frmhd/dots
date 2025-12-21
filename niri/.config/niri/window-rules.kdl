@@ -81,7 +81,7 @@ window-rule {
     default-column-width { proportion 1.0; }
 }
 
-window-rule {
+/-window-rule {
     match app-id=r#"^dev\.zed"#
 
     open-floating true

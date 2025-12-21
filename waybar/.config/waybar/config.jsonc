@@ -4,9 +4,7 @@
   "position": "top",
   "spacing": 0,
   "height": 26,
-  "modules-left": [
-    "niri/workspaces"
-  ],
+  "modules-left": ["niri/workspaces", "mpris"],
   "modules-center": [
     "clock",
     "custom/update",
@@ -21,6 +19,26 @@
     "cpu",
     "memory",
   ],
+  "mpris": {
+    "format": "|  {player_icon} {title} - {artist}",
+    "format-paused": "|  {status_icon} {title} - {artist}",
+    "player-icons": {
+      "default": "▶",
+      "spotify": "",
+      "firefox": "",
+      "vlc": "󰕼",
+    },
+    "status-icons": {
+      "paused": "󰏤",
+      "playing": "󰐊",
+    },
+    // Max characters before it truncates
+    "max-length": 40,
+    // Click actions
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous",
+  },
   "niri/language": {
     "format": "{}",
     "format-en": "en",
@@ -70,13 +88,7 @@
     "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select",
   },
   "network": {
-    "format-icons": [
-      "󰤯",
-      "󰤟",
-      "󰤢",
-      "󰤥",
-      "󰤨"
-    ],
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
     "format": "{icon}",
     "format-wifi": "{icon}",
     "format-ethernet": "󰀂",
@@ -95,30 +107,8 @@
     "format-charging": "{icon}",
     "format-plugged": "",
     "format-icons": {
-      "charging": [
-        "󰢜",
-        "󰂆",
-        "󰂇",
-        "󰂈",
-        "󰢝",
-        "󰂉",
-        "󰢞",
-        "󰂊",
-        "󰂋",
-        "󰂅"
-      ],
-      "default": [
-        "󰁺",
-        "󰁻",
-        "󰁼",
-        "󰁽",
-        "󰁾",
-        "󰁿",
-        "󰂀",
-        "󰂁",
-        "󰂂",
-        "󰁹"
-      ],
+      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
     },
     "format-full": "󰂅",
     "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
@@ -148,11 +138,7 @@
     "scroll-step": 5,
     "format-muted": "",
     "format-icons": {
-      "default": [
-        "",
-        "",
-        ""
-      ],
+      "default": ["", "", ""],
     },
   },
   "group/tray-expander": {
@@ -161,10 +147,7 @@
       "transition-duration": 600,
       "children-class": "tray-group-item",
     },
-    "modules": [
-      "custom/expand-icon",
-      "tray"
-    ],
+    "modules": ["custom/expand-icon", "tray"],
   },
   "custom/expand-icon": {
     "format": "",

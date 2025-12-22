@@ -19,6 +19,7 @@ binds {
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+Space hotkey-overlay-title="Run an Application: walker" { spawn "walker"; }
     Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "walker" "-m" "menus:omarchythemes"; }
+    Mod+N hotkey-overlay-title="Toggle night light" { spawn-sh "pkill wlsunset || exec wlsunset -t 5000"; }
 
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 

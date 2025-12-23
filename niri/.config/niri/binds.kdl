@@ -22,7 +22,7 @@ binds {
     Mod+B hotkey-overlay-title="Browser menu" { spawn-sh "/home/frmhd/dev/system/dots/themes/set-next-bg.sh"; }
     Mod+N hotkey-overlay-title="Toggle night light" { spawn-sh "pkill wlsunset || exec wlsunset -t 5000"; }
 
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.

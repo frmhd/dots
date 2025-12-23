@@ -3,3 +3,7 @@ layout {
         active-color "#205EA6ee"
     }
 }
+
+overview {
+    backdrop-color "#FFFCF0"
+}

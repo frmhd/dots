@@ -3,3 +3,7 @@ layout {
         active-color "#575279"
     }
 }
+
+overview {
+    backdrop-color "#faf4ed" // see color in waybar.css in each theme (background color)
+}

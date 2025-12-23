@@ -18,7 +18,8 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+Space hotkey-overlay-title="Run an Application: walker" { spawn "walker"; }
-    Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "walker" "-m" "menus:omarchythemes"; }
+    Mod+T hotkey-overlay-title="Themes menu" { spawn "walker" "-m" "menus:omarchythemes"; }
+    Mod+B hotkey-overlay-title="Browser menu" { spawn-sh "/home/frmhd/dev/system/dots/themes/set-next-bg.sh"; }
     Mod+N hotkey-overlay-title="Toggle night light" { spawn-sh "pkill wlsunset || exec wlsunset -t 5000"; }
 
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
@@ -47,8 +48,8 @@ binds {
     // Example brightness key mappings for brightnessctl.
     // You can use regular spawn with multiple arguments too (to avoid going through "sh"),
     // but you need to manually put each argument in separate "" quotes.
-    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "ddcutil setvcp 10 + 10"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "ddcutil setvcp 10 - 10"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "/home/frmhd/dev/system/dots/themes/brightness-control.sh up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "/home/frmhd/dev/system/dots/themes/brightness-control.sh down"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,

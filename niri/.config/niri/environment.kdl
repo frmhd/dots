@@ -7,4 +7,6 @@ environment {
 
     // Оптимальный движок FreeType
     FREETYPE_PROPERTIES "truetype:interpreter-version=40"
+
+    QT_QPA_PLATFORMTHEME "gtk3"
 }

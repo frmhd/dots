@@ -103,10 +103,19 @@ window-rule {
 
 window-rule {
     match is-active=false
-    opacity 0.98
+    opacity 0.95
 }
 
 window-rule {
     match is-active=true
     opacity 0.99
+}
+
+window-rule {
+    match app-id=r#"^org\.float"#
+    open-floating true
+
+    default-floating-position x=40 y=8 relative-to="top-right"
+    default-column-width { fixed 800; }
+    default-window-height { fixed 800; }
 }

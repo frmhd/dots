@@ -134,6 +134,8 @@
     // "on-click": "omarchy-launch-or-focus-tui wiremix",
     "on-click": "alacritty -e wiremix",
     "on-click-right": "pamixer -t",
+    "on-scroll-up": "exec swayosd-client --output-volume 4",
+    "on-scroll-down": "exec swayosd-client --output-volume -4",
     "tooltip-format": "Playing at {volume}%",
     "scroll-step": 5,
     "format-muted": "",

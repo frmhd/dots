@@ -1,0 +1,11 @@
+[[entries]]
+name = "Google AI"
+url = "https://www.google.com/search?udm=50&aep=11&q=%TERM%"
+prefix = "ai"
+icon = "🤖"
+
+[[entries]]
+name = "Google Translate"
+url = "https://translate.google.com/?sl=auto&tl=en&text=%TERM%&op=translate"
+prefix = "tr"
+icon = "🌐"

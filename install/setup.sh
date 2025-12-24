@@ -1,220 +1,125 @@
 #!/bin/bash
-set -e
+# Main setup orchestrator
+# Runs all modules in sequence or specific modules
+
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Colors
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-BOLD='\033[1m'
-NC='\033[0m'
+# Source common functions
+source "$SCRIPT_DIR/lib/common.sh"
 
-log_info() { echo -e "${BLUE}[INFO]${NC} $1"; }
-log_success() { echo -e "${GREEN}[OK]${NC} $1"; }
-log_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
-log_error() { echo -e "${RED}[ERROR]${NC} $1"; }
-log_step() { echo -e "\n${CYAN}${BOLD}=== $1 ===${NC}\n"; }
-
-show_banner() {
-    echo -e "${CYAN}"
-    echo "╔═══════════════════════════════════════╗"
-    echo "║         System Setup Script           ║"
-    echo "║         Arch Linux + Wayland          ║"
-    echo "╚═══════════════════════════════════════╝"
-    echo -e "${NC}"
-}
-
-confirm() {
-    local prompt="$1"
-    local default="${2:-y}"
-
-    if [[ "$default" == "y" ]]; then
-        prompt="$prompt [Y/n]: "
-    else
-        prompt="$prompt [y/N]: "
-    fi
-
-    read -p "$prompt" response
-    response=${response:-$default}
-
-    [[ "$response" =~ ^[Yy] ]]
-}
-
-run_step() {
-    local name="$1"
-    local script="$2"
-
-    if confirm "Run $name?"; then
-        log_step "$name"
-        bash "$SCRIPT_DIR/$script"
-        log_success "$name completed"
-    else
-        log_warn "Skipping $name"
-    fi
-}
-
-install_packages() {
-    run_step "Package Installation" "install-packages.sh"
-}
-
-deploy_dotfiles() {
-    run_step "Dotfiles Deployment" "deploy-dotfiles.sh"
-}
-
-install_dev_tools() {
-    log_step "Development Tools"
-
-    if confirm "Install nvm (Node Version Manager)?"; then
-        bash "$SCRIPT_DIR/nvm.sh"
-    fi
-
-    if confirm "Install bun?"; then
-        bash "$SCRIPT_DIR/bun.sh"
-    fi
-}
-
-setup_shell() {
-    log_step "Shell Setup"
-
-    if [[ "$SHELL" != *"zsh"* ]]; then
-        if confirm "Change default shell to zsh?"; then
-            chsh -s $(which zsh)
-            log_success "Default shell changed to zsh"
-            log_warn "Please log out and back in for changes to take effect"
-        fi
-    else
-        log_info "zsh is already the default shell"
-    fi
-}
-
-enable_services() {
-    log_step "System Services"
-
-    local services=(
-        "ly.service"
-    )
-
-    for service in "${services[@]}"; do
-        if confirm "Enable $service?"; then
-            sudo systemctl enable "$service" || log_warn "Failed to enable $service"
-        fi
-    done
-}
-
-set_theme() {
-    log_step "Theme Selection"
-
-    local themes_dir="$SCRIPT_DIR/../themes"
-    if [[ -d "$themes_dir" ]]; then
-        echo "Available themes:"
-        ls -1 "$themes_dir" | grep -v "\.sh$" | grep -v "^set-" | while read theme; do
-            if [[ -d "$themes_dir/$theme" ]]; then
-                echo "  - $theme"
-            fi
-        done
-        echo ""
-
-        read -p "Enter theme name (or press Enter to skip): " theme_name
-        if [[ -n "$theme_name" && -d "$themes_dir/$theme_name" ]]; then
-            "$themes_dir/set-theme" "$theme_name"
-            log_success "Theme set to $theme_name"
-        fi
-    fi
-}
+# Available modules in order
+MODULES=(
+    "00-preflight.sh"
+    "10-packages.sh"
+    "20-dotfiles.sh"
+    "30-git.sh"
+    "40-dev-tools.sh"
+    "50-services.sh"
+    "60-finalize.sh"
+)
 
 show_help() {
     echo "Usage: $0 [OPTIONS]"
     echo ""
-    echo "Full system setup script for Arch Linux + Wayland"
+    echo "Arch Linux setup script for Niri + Wayland"
     echo ""
     echo "Options:"
-    echo "  --packages     Only install packages"
-    echo "  --dotfiles     Only deploy dotfiles"
-    echo "  --dev          Only install dev tools (nvm, bun)"
-    echo "  --shell        Only setup shell"
-    echo "  --services     Only enable services"
-    echo "  --theme        Only set theme"
-    echo "  --all          Run all steps (interactive)"
-    echo "  --auto         Run all steps (non-interactive, accept defaults)"
-    echo "  -h, --help     Show this help"
+    echo "  --module <num>   Run specific module (e.g., --module 30)"
+    echo "  --from <num>     Start from module (e.g., --from 20)"
+    echo "  --list           List available modules"
+    echo "  -h, --help       Show this help"
+    echo ""
+    echo "Examples:"
+    echo "  $0               Run all modules"
+    echo "  $0 --module 30   Run only git configuration"
+    echo "  $0 --from 40     Run from dev-tools onwards"
+}
+
+list_modules() {
+    echo "Available modules:"
+    for module in "${MODULES[@]}"; do
+        num="${module%%-*}"
+        name="${module#*-}"
+        name="${name%.sh}"
+        echo "  $num  $name"
+    done
+}
+
+run_all() {
+    show_banner
+
+    for module in "${MODULES[@]}"; do
+        run_module "$module"
+    done
+}
+
+run_single() {
+    local target="$1"
+
+    for module in "${MODULES[@]}"; do
+        if [[ "$module" == "$target"* ]]; then
+            show_banner
+            run_module "$module"
+            return 0
+        fi
+    done
+
+    log_err "Module not found: $target"
+    exit 1
+}
+
+run_from() {
+    local start="$1"
+    local started=false
+
+    show_banner
+
+    for module in "${MODULES[@]}"; do
+        if [[ "$module" == "$start"* ]]; then
+            started=true
+        fi
+
+        if $started; then
+            run_module "$module"
+        fi
+    done
+
+    if ! $started; then
+        log_err "Module not found: $start"
+        exit 1
+    fi
 }
 
 main() {
     cd "$SCRIPT_DIR"
 
     if [[ $# -eq 0 ]]; then
-        show_banner
-        install_packages
-        deploy_dotfiles
-        install_dev_tools
-        setup_shell
-        enable_services
-        set_theme
-
-        echo ""
-        log_success "System setup complete!"
-        echo ""
-        echo "Next steps:"
-        echo "  1. Log out and back in to apply shell changes"
-        echo "  2. Start niri or hyprland: niri-session"
-        echo "  3. Use set-theme to change themes"
+        run_all
         exit 0
     fi
 
     while [[ $# -gt 0 ]]; do
         case $1 in
-            --packages)
-                install_packages
-                shift
+            --module)
+                run_single "$2"
+                shift 2
                 ;;
-            --dotfiles)
-                deploy_dotfiles
-                shift
+            --from)
+                run_from "$2"
+                shift 2
                 ;;
-            --dev)
-                install_dev_tools
-                shift
-                ;;
-            --shell)
-                setup_shell
-                shift
-                ;;
-            --services)
-                enable_services
-                shift
-                ;;
-            --theme)
-                set_theme
-                shift
-                ;;
-            --all)
-                show_banner
-                install_packages
-                deploy_dotfiles
-                install_dev_tools
-                setup_shell
-                enable_services
-                set_theme
-                shift
-                ;;
-            --auto)
-                show_banner
-                log_info "Running in non-interactive mode..."
-                bash "$SCRIPT_DIR/install-packages.sh"
-                bash "$SCRIPT_DIR/deploy-dotfiles.sh"
-                bash "$SCRIPT_DIR/nvm.sh"
-                bash "$SCRIPT_DIR/bun.sh"
-                shift
+            --list)
+                list_modules
+                exit 0
                 ;;
             -h|--help)
                 show_help
                 exit 0
                 ;;
             *)
-                log_error "Unknown option: $1"
+                log_err "Unknown option: $1"
                 show_help
                 exit 1
                 ;;

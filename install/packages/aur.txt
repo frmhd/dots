@@ -5,4 +5,3 @@ visual-studio-code-bin
 elephant-bin
 elephant-all-bin
 walker-bin
-omarchy-chromium-bin

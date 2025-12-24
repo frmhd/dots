@@ -1,5 +1,5 @@
 // Output/monitor configuration
-// 4k monitor with scale 1.5
+// 4k monitor
 output "DP-2" {
     mode "3840x2160@60.000"
     scale 1.5

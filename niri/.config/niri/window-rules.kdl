@@ -16,6 +16,7 @@ window-rule {
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     match title="^Picture-in-picture$"
+    match title="^Picture in picture$"
     open-floating true
 
     // Set the window size

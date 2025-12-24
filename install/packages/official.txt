@@ -1,7 +1,6 @@
 # Official Arch Linux packages
 # Browsers
 chromium
-firefox
 
 # Development
 git

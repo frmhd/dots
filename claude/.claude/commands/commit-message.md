@@ -7,11 +7,15 @@ model: claude-haiku-4-5
 ## Context
 
 - Current git status: !`git status`
-- Current git diff (staged and unstaged changes): !`git diff HEAD`
+- Staged changes: !`git diff --cached`
 - Current branch: !`git branch --show-current`
 - Recent commits: !`git log --oneline -10`
 
 ## Your task
 
-Based on the above changes, create a single git commit message. Use Conventional Commits format.
-Return only the commit message itself without any additional text (commit message should be ready for copy-paste)
+**IMPORTANT**: You MUST first check if there are any staged changes by examining the "Staged changes" output above.
+
+- If the staged changes output is empty, you MUST respond with an error message: "Error: No staged changes found. Please stage your changes with 'git add' before generating a commit message."
+- If there are staged changes, create a single git commit message based ONLY on the staged changes. Use Conventional Commits format.
+
+Return only the commit message itself (or error message) without any additional text. The commit message should be ready for copy-paste.

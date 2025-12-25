@@ -49,6 +49,27 @@ fi
 # Prefer conference link, fallback to hangout link
 LINK="${CONFERENCE_LINK:-$HANGOUT_LINK}"
 
+# Reminder notification (10 minutes before, once per event)
+NOTIFY_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/waybar-calendar-notified"
+TEN_MIN=$((NOW_SECS + 600))
+if [ "$EVENT_SECS" -gt "$NOW_SECS" ] && [ "$EVENT_SECS" -le "$TEN_MIN" ]; then
+    # Create unique event ID (date + time + title)
+    TODAY=$(date +%Y-%m-%d)
+    EVENT_ID="${TODAY}_${TIME}_${TITLE}"
+
+    # Check if already notified
+    if ! grep -qFx "$EVENT_ID" "$NOTIFY_FILE" 2>/dev/null; then
+        notify-send -u normal -a "Calendar" "📅 $TITLE" "Starting at $TIME"
+        echo "$EVENT_ID" >> "$NOTIFY_FILE"
+    fi
+fi
+
+# Clean old entries from notify file (keep only today's)
+if [ -f "$NOTIFY_FILE" ]; then
+    grep "^$(date +%Y-%m-%d)_" "$NOTIFY_FILE" > "$NOTIFY_FILE.tmp" 2>/dev/null
+    mv "$NOTIFY_FILE.tmp" "$NOTIFY_FILE" 2>/dev/null
+fi
+
 # Create JSON using jq (compact output for waybar)
 jq -cn \
   --arg text "$DISPLAY_TEXT" \

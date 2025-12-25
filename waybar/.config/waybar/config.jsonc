@@ -11,6 +11,7 @@
     "custom/screenrecording-indicator",
   ],
   "modules-right": [
+    "custom/calendar",
     "group/tray-expander",
     "niri/language",
     "bluetooth",
@@ -86,6 +87,13 @@
     "format-alt": "{:L%d %B W%V %Y}",
     "tooltip": false,
     "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select",
+  },
+  "custom/calendar": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/scripts/calendar.sh",
+    "interval": 300,
+    "on-click": "xdg-open $(~/.config/waybar/scripts/calendar.sh | jq -r .alt)",
   },
   "network": {
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],

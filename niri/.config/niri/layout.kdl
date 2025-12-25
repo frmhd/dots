@@ -154,4 +154,13 @@ layout {
         top 0
         bottom 0
     }
+
+    tab-indicator {
+        width 4
+        gap 8
+        gaps-between-tabs 8
+        length total-proportion=0.1
+        position "left"
+        place-within-column
+    }
 }

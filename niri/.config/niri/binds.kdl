@@ -260,6 +260,8 @@ binds {
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
+    Mod+Print { spawn-sh "satty --copy-command wl-copy -f \"$(ls -t ~/Pictures/Screenshots/*.png | head -n1)\""; }
+
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here

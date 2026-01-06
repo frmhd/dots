@@ -1,5 +1,7 @@
 // Startup applications
 
 spawn-at-startup "waybar"
-spawn-sh-at-startup "swaybg -i $HOME/Pictures/walls/1-scenery-pink-lakeside-sunset-lake-landscape-scenic-panorama-7680x3215-144.png -m fill"
+spawn-at-startup "swayosd-server"
+spawn-at-startup "swaybg" "-i" "$HOME/.config/omarchy/current/background" "-m" "fill"
 spawn-at-startup "walker" "--gapplication-service"
+spawn-at-startup "wlsunset" "-l" "41.6" "-L" "41.6" "-d" "1800" "-t" "5000"

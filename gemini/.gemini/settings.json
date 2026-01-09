@@ -11,5 +11,15 @@
   },
   "ui": {
     "theme": "Default Light"
+  },
+  "experimental": {
+    "skills": true
+  },
+  "context": {
+    "fileName": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "GEMINI.md"
+    ]
   }
 }

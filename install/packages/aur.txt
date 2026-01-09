@@ -2,7 +2,5 @@
 brave-bin
 localsend-bin
 visual-studio-code-bin
-elephant-bin
-elephant-all-bin
-walker-bin
+# AUR packages
 gcalcli

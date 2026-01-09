@@ -10,15 +10,14 @@ STOW_PACKAGES=(
     btop
     claude
     electron-and-browsers-flags
-    elephant
     fontconfig
+    fuzzel
     hypr
     mako
     mango
     niri
     nvim
     swayosd
-    walker
     waybar
 )
 

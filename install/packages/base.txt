@@ -11,7 +11,6 @@ mako
 swayosd
 
 # Application Launcher
-# walker (AUR)
 
 # Terminal
 alacritty

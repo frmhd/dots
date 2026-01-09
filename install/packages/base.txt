@@ -48,3 +48,5 @@ libnotify
 mesa
 libva-mesa-driver
 libva-utils
+fuzzel
+cliphist

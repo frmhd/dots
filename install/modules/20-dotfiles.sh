@@ -14,6 +14,7 @@ STOW_PACKAGES=(
     fontconfig
     hypr
     mako
+    mango
     niri
     nvim
     swayosd

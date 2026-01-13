@@ -34,7 +34,8 @@ export const AttentionNotify = async ({ $ }) => {
         return;
       }
 
-      await $`notify-send ${title} ${message}`;
+      const appName = selfWindowId ? `opencode-${selfWindowId}` : "opencode";
+      await $`notify-send -a ${appName} -i $HOME/.config/opencode/plugin/opencode-logo-dark.png -t 0 ${title} ${message}`;
       await playSound();
     } catch (error) {
       console.error("Notification failed", error);
@@ -44,25 +45,24 @@ export const AttentionNotify = async ({ $ }) => {
   return {
     event: async ({ event }) => {
       if (event.type === "session.idle") {
-        await notify("opencode", "Session completed");
+        await notify("opencode", "Session completed — review output");
       }
 
       if (event.type === "session.error") {
-        await notify("opencode", "Session error");
+        await notify("opencode", "Session error — check logs");
       }
 
-      if (event.type === "permission.updated") {
-        const status = event.permission?.status;
-        const needsAttention =
-          !status || status === "pending" || status === "requested";
-        if (needsAttention) {
-          await notify("opencode", "Permission requested");
-        }
+      if (event.type.startsWith("permission.")) {
+        await notify("opencode", `Permission — action needed`);
       }
     },
     "tool.execute.before": async (input) => {
       if (input.tool === "question") {
-        await notify("opencode", "Question requested");
+        const questionHeader = input.params?.questions?.[0]?.header;
+        const summary = questionHeader
+          ? `Input needed — ${questionHeader}`
+          : "Input needed — question ready";
+        await notify("opencode", summary);
       }
     },
   };

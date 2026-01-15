@@ -9,7 +9,7 @@ output "DP-2" {
 
 output "eDP-1" {
     mode "2880x1800@90.000"
-    scale 2.0
+    scale 2
     transform "normal"
     position x=0 y=0
 }

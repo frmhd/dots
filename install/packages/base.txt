@@ -23,6 +23,7 @@ git
 base-devel
 neovim
 unzip
+curl
 
 # Fonts
 ttf-jetbrains-mono-nerd

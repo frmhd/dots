@@ -4,6 +4,11 @@
 
 log_header "10" "Installing packages..."
 
+# Ensure build deps for yay
+log_info "Ensuring build dependencies for yay..."
+sudo pacman -S --needed --noconfirm base-devel git
+log_ok "Build dependencies ready"
+
 # Install yay if not present
 if ! has_cmd yay; then
     log_info "Installing yay AUR helper..."

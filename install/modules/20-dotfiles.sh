@@ -19,6 +19,7 @@ STOW_PACKAGES=(
     nvim
     swayosd
     waybar
+    zsh
 )
 
 # Check stow is installed

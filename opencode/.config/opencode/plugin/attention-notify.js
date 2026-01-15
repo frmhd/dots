@@ -35,7 +35,7 @@ export const AttentionNotify = async ({ $ }) => {
       }
 
       const appName = selfWindowId ? `opencode-${selfWindowId}` : "opencode";
-      await $`notify-send -a ${appName} -i $HOME/.config/opencode/plugin/opencode-logo-dark.png -t 0 ${title} ${message}`;
+      await $`notify-send -a ${appName} -i $HOME/.config/opencode/plugin/opencode-logo-dark.png ${title} ${message}`;
       await playSound();
     } catch (error) {
       console.error("Notification failed", error);

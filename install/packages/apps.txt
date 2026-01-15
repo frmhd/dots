@@ -28,6 +28,7 @@ obsidian
 jq
 imagemagick
 fd
+fzf
 bc
 man-db
 gum

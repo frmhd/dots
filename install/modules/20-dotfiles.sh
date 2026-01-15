@@ -4,6 +4,26 @@
 
 log_header "20" "Deploying dotfiles..."
 
+# Install Oh My Zsh
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    log_info "Installing Oh My Zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    log_ok "Oh My Zsh installed"
+else
+    log_ok "Oh My Zsh already installed"
+fi
+
+# Install zsh-autosuggestions
+zsh_custom="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+if [[ ! -d "$zsh_custom/plugins/zsh-autosuggestions" ]]; then
+    log_info "Installing zsh-autosuggestions..."
+    mkdir -p "$zsh_custom/plugins"
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$zsh_custom/plugins/zsh-autosuggestions"
+    log_ok "zsh-autosuggestions installed"
+else
+    log_ok "zsh-autosuggestions already installed"
+fi
+
 # Stow packages to deploy
 STOW_PACKAGES=(
     alacritty

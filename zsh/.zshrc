@@ -123,6 +123,15 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 alias clauded="claude --allow-dangerously-skip-permissions"
 alias opencode="OPENCODE_EXPERIMENTAL_PLAN_MODE=1 opencode"
+alias opencode-local="OPENCODE_EXPERIMENTAL_PLAN_MODE=1 opencode-local"
+alias opencode-local-upgrade="cd /home/frmhd/dev/github/opencode/packages/opencode && gf && git rebase origin/dev && bun run build --single && ln -sf /home/frmhd/dev/github/opencode/packages/opencode/dist/opencode-linux-x64/bin/opencode /home/frmhd/.local/bin/opencode-local"
 
 # opencode
 export PATH=/home/frmhd/.opencode/bin:$PATH
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
+
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin

@@ -7,19 +7,28 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "project_panel": {
+    "dock": "left"
+  },
   "git_panel": {
     "tree_view": true,
   },
   "agent_servers": {
     "opencode": {
+      "default_model": "kimi-for-coding/k2p5/high",
       "favorite_models": [
         "openai/gpt-5.2-codex",
         "google/gemini-3-pro-preview",
         "google/gemini-3-flash-preview",
+        "kimi-for-coding/k2p5/high",
+        "kimi-for-coding/k2p5/max"
       ],
       "type": "custom",
-      "command": "opencode",
+      "command": "opencode-local",
       "args": ["acp"],
+      "env": {
+        "OPENCODE_EXPERIMENTAL_PLAN_MODE": "1",
+      },
     },
     "gemini": {
       "command": "gemini",

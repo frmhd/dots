@@ -13,7 +13,8 @@
     "theme": "Default Light"
   },
   "experimental": {
-    "skills": true
+    "skills": true,
+    "plan": true
   },
   "context": {
     "fileName": [

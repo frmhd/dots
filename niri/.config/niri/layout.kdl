@@ -115,7 +115,7 @@ layout {
         spread 0
 
         // Offset moves the shadow relative to the window.
-        offset x=12 y=12
+        offset x=4 y=4
 
         // You can also change the shadow color and opacity.
         color "#ffb4a290"
@@ -127,8 +127,8 @@ layout {
         width 4
         gap 8
         gaps-between-tabs 8
-        length total-proportion=0.1
-        position "left"
+        length total-proportion=1.0
+        position "top"
         place-within-column
     }
 }

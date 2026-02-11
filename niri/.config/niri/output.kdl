@@ -2,7 +2,7 @@
 // 4k monitor
 output "DP-2" {
     mode "3840x2160@60.000"
-    scale 1.5
+    scale 1.6
     transform "normal"
     position x=0 y=0
 }

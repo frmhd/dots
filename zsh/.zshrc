@@ -121,10 +121,10 @@ export NVM_DIR="$HOME/.nvm"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+export OPENCODE_ENABLE_EXA=1
+export OPENCODE_EXPERIMENTAL_PLAN_MODE=1
+
 alias clauded="claude --allow-dangerously-skip-permissions"
-alias opencode="OPENCODE_EXPERIMENTAL_PLAN_MODE=1 opencode"
-alias opencode-local="OPENCODE_EXPERIMENTAL_PLAN_MODE=1 opencode-local"
-alias opencode-local-upgrade="cd /home/frmhd/dev/github/opencode/packages/opencode && gf && git rebase origin/dev && bun run build --single && ln -sf /home/frmhd/dev/github/opencode/packages/opencode/dist/opencode-linux-x64/bin/opencode /home/frmhd/.local/bin/opencode-local"
 
 # opencode
 export PATH=/home/frmhd/.opencode/bin:$PATH

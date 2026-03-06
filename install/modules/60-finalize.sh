@@ -18,7 +18,12 @@ fi
 
 # Apply theme if set-theme exists
 if [[ -x "$DOTS_DIR/themes/set-theme" ]]; then
-    current_theme=$(basename "$(readlink -f "$HOME/.config/omarchy/current/theme" 2>/dev/null)" 2>/dev/null || echo "")
+    if [[ -f "$HOME/.config/omarchy/current/theme.name" ]]; then
+        current_theme=$(<"$HOME/.config/omarchy/current/theme.name")
+    else
+        current_theme=$(basename "$(readlink -f "$HOME/.config/omarchy/current/theme" 2>/dev/null)" 2>/dev/null || echo "")
+    fi
+
     if [[ -n "$current_theme" ]]; then
         log_info "Applying theme: $current_theme"
         "$DOTS_DIR/themes/set-theme" "$current_theme" &>/dev/null || true

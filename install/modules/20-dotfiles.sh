@@ -63,24 +63,37 @@ done
 log_info "Setting up theme system..."
 mkdir -p "$HOME/.local/share/omarchy"
 mkdir -p "$HOME/.config/omarchy/current"
+mkdir -p "$HOME/.config/omarchy/themes"
+mkdir -p "$HOME/.config/omarchy/themed"
 
 # Link themes directory
 if [[ ! -L "$HOME/.local/share/omarchy/themes" ]]; then
     ln -snf "$DOTS_DIR/themes" "$HOME/.local/share/omarchy/themes"
 fi
 
-# Set default theme if not set
-if [[ ! -L "$HOME/.config/omarchy/current/theme" ]]; then
-    if [[ -d "$DOTS_DIR/themes/flexoki-light" ]]; then
-        ln -snf "$DOTS_DIR/themes/flexoki-light" "$HOME/.config/omarchy/current/theme"
-        log_ok "Default theme: flexoki-light"
-    elif [[ -d "$DOTS_DIR/themes/tokyo-night" ]]; then
-        ln -snf "$DOTS_DIR/themes/tokyo-night" "$HOME/.config/omarchy/current/theme"
-        log_ok "Default theme: tokyo-night"
-    fi
-else
-    current_theme=$(basename "$(readlink -f "$HOME/.config/omarchy/current/theme")")
+# Add managed policy directories for Chromium and Brave theme changes
+sudo mkdir -p /etc/chromium/policies/managed
+sudo chmod a+rw /etc/chromium/policies/managed
+
+sudo mkdir -p /etc/brave/policies/managed
+sudo chmod a+rw /etc/brave/policies/managed
+
+# Track current theme name for the generated theme workflow
+if [[ -f "$HOME/.config/omarchy/current/theme.name" ]]; then
+    current_theme=$(<"$HOME/.config/omarchy/current/theme.name")
     log_ok "Theme already set: $current_theme"
+elif [[ -L "$HOME/.config/omarchy/current/theme" ]]; then
+    current_theme=$(basename "$(readlink -f "$HOME/.config/omarchy/current/theme")")
+    printf '%s\n' "$current_theme" > "$HOME/.config/omarchy/current/theme.name"
+    log_ok "Migrated theme: $current_theme"
+elif [[ -d "$DOTS_DIR/themes/flexoki-light" ]]; then
+    printf 'flexoki-light\n' > "$HOME/.config/omarchy/current/theme.name"
+    log_ok "Default theme: flexoki-light"
+elif [[ -d "$DOTS_DIR/themes/tokyo-night" ]]; then
+    printf 'tokyo-night\n' > "$HOME/.config/omarchy/current/theme.name"
+    log_ok "Default theme: tokyo-night"
+else
+    log_warn "No default theme found"
 fi
 
 log_ok "Dotfiles deployed"

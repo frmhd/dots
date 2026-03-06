@@ -175,9 +175,5 @@
   "agent_ui_font_size": 14,
   "ui_font_family": "Adwaita Sans",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
-  "theme": {
-    "mode": "system",
-    "light": "One Light",
-    "dark": "One Dark",
-  },
+  "theme": "Current System",
 }

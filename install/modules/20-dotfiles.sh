@@ -39,6 +39,7 @@ STOW_PACKAGES=(
     nvim
     swayosd
     waybar
+    zed
     zsh
 )
 

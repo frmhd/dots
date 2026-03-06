@@ -130,6 +130,10 @@ touch ~/.config/alacritty/alacritty.toml
 touch ~/.config/btop/btop.conf
 touch ~/.config/btop/themes/current.theme
 
+# OpenCode's system theme samples terminal colors, so reload it after the
+# terminal has had a moment to pick up the new theme.
+(sleep 0.05; killall -SIGUSR2 opencode-local 2>/dev/null || true) &
+
 # Restart btop if running
 pkill -SIGUSR2 btop 2>/dev/null || true
 

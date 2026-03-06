@@ -3,6 +3,6 @@
 spawn-at-startup "waybar"
 spawn-at-startup "swayosd-server"
 spawn-at-startup "swaybg" "-i" "/home/frmhd/.config/omarchy/current/background" "-m" "fill"
+spawn-at-startup "sh" "/home/frmhd/.config/niri/idle.sh"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 spawn-at-startup "wlsunset" "-l" "41.6" "-L" "41.6" "-d" "1800" "-t" "5000"
-spawn-at-startup "swayidle" "-w" "timeout" "300" "swaylock -f -C $HOME/.config/omarchy/current/theme/swaylock.conf" "timeout" "600" "niri msg action power-off-monitors" "resume" "niri msg action power-on-monitors" "timeout" "900" "systemctl suspend" "before-sleep" "swaylock -f -C $HOME/.config/omarchy/current/theme/swaylock.conf" "after-resume" "sh" "-c" "sleep 2; niri msg action power-on-monitors; niri msg output DP-2 on; niri msg output eDP-1 on"

@@ -27,7 +27,7 @@ binds {
     Mod+N hotkey-overlay-title="Toggle night light" { spawn-sh "pkill wlsunset && notify-send 'Night Light' 'Disabled' || { exec wlsunset -l 41.6 -L 41.6 -d 1800 -t 5000 & notify-send 'Night Light' 'Enabled'; }"; }
 
     // Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "swaylock -C $HOME/.config/omarchy/current/theme/swaylock.conf"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "sh \"$HOME/.config/niri/lock.sh\""; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.

@@ -123,8 +123,11 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 export OPENCODE_ENABLE_EXA=1
 export OPENCODE_EXPERIMENTAL_PLAN_MODE=1
+export OPENCODE_EXPERIMENTAL_MARKDOWN=1
 
 alias clauded="claude --allow-dangerously-skip-permissions"
+alias zdots="zed /home/frmhd/dev/system/dots"
+
 
 # opencode
 export PATH=/home/frmhd/.opencode/bin:$PATH

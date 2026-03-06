@@ -1,6 +1,6 @@
 ---
 description: Create a git commit message based on staged changes
-model: google/gemini-3-flash-preview
+model: ollama/kimi-k2.5:cloud
 ---
 
 ## Context

@@ -7,7 +7,13 @@
   },
   "general": {
     "previewFeatures": true,
-    "enablePromptCompletion": true
+    "enablePromptCompletion": false,
+    "sessionRetention": {
+      "warningAcknowledged": true,
+      "enabled": true,
+      "maxAge": "30d"
+    },
+    "defaultApprovalMode": "default"
   },
   "ui": {
     "theme": "Default Light"

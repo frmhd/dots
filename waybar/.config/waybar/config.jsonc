@@ -6,9 +6,7 @@
   "height": 26,
   "modules-left": ["niri/workspaces", "mpris"],
   "modules-center": [
-    "clock",
-    "custom/update",
-    "custom/screenrecording-indicator",
+    "clock"
   ],
   "modules-right": [
     "custom/calendar",
@@ -63,14 +61,7 @@
       "active": "󱓻",
     },
   },
-  "custom/update": {
-    "format": "",
-    "exec": "omarchy-update-available",
-    "on-click": "omarchy-launch-floating-terminal-with-presentation omarchy-update",
-    "tooltip-format": "Omarchy update available",
-    "signal": 7,
-    "interval": 21600,
-  },
+
   "cpu": {
     "interval": 5,
     "format": "cpu: {usage}%",
@@ -163,12 +154,7 @@
     "format": "",
     "tooltip": false,
   },
-  "custom/screenrecording-indicator": {
-    "on-click": "omarchy-cmd-screenrecord",
-    "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
-    "signal": 8,
-    "return-type": "json",
-  },
+
   "tray": {
     "icon-size": 12,
     "spacing": 17,

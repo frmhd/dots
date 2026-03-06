@@ -39,6 +39,8 @@ sushi
 # Hardware
 ddcutil
 wlsunset
+swayidle
+swaylock
 hyprlock
 
 # Network & Bluetooth

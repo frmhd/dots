@@ -19,13 +19,15 @@ binds {
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+T hotkey-overlay-title="Themes menu" { spawn-sh "/home/frmhd/dev/system/dots/themes/theme-picker.sh"; }
+    Mod+Shift+T hotkey-overlay-title="Toggle Handy transcription" { spawn "handy" "--toggle-transcription"; }
+    Mod+Shift+Y hotkey-overlay-title="Toggle Handy transcription (with post-process)" { spawn "handy" "--toggle_post_process"; }
     Mod+Alt+V hotkey-overlay-title="Clipboard History" { spawn-sh "/home/frmhd/dev/system/dots/themes/clipboard-picker.sh"; }
     Mod+B hotkey-overlay-title="Browser menu" { spawn-sh "/home/frmhd/dev/system/dots/themes/set-next-bg.sh"; }
     Mod+Shift+W hotkey-overlay-title="Pick wallpaper" { spawn-sh "/home/frmhd/dev/system/dots/themes/wallpaper-picker.sh"; }
     Mod+N hotkey-overlay-title="Toggle night light" { spawn-sh "pkill wlsunset && notify-send 'Night Light' 'Disabled' || { exec wlsunset -l 41.6 -L 41.6 -d 1800 -t 5000 & notify-send 'Night Light' 'Enabled'; }"; }
 
     // Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn-sh "swaylock -C $HOME/.config/omarchy/current/theme/swaylock.conf"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "swaylock -C $HOME/.config/omarchy/current/theme/swaylock.conf"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.

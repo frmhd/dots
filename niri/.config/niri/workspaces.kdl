@@ -1,3 +1,27 @@
-workspace "browser"
+workspace "browser" {
+    layout {
+        struts {
+            left 16
+            right 16
+            top 16
+            bottom 16
+        }
+
+        gaps 32
+        center-focused-column "always"
+        default-column-width { proportion 0.5; }
+    }
+}
 workspace "code"
-workspace "msgs"
+workspace "msgs" {
+    layout {
+        struts {
+            left 32
+            right 32
+            top 16
+            bottom 16
+        }
+
+        gaps 32
+    }
+}

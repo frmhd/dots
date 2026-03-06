@@ -92,7 +92,7 @@ window-rule {
 window-rule {
     match app-id=r#"^Alacritty$"#
 
-    default-column-width { proportion 0.33333; }
+    // default-column-width { proportion 0.33333; }
 }
 
 // Disable rounded corners for all windows.

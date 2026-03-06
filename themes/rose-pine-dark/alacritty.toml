@@ -26,4 +26,5 @@ cyan = '#ebbcba'
 white = '#e0def4'
 
 [colors.selection]
+text = '#e0def4'
 background = '#26233a'

@@ -1,5 +1,6 @@
 #!/bin/bash
 THEME_DIR="$HOME/dev/system/dots/themes"
+
 # List directories in themes folder, excluding scripts/files
 THEMES=$(find "$THEME_DIR" -maxdepth 1 -mindepth 1 -type d -not -path '*/.*' -exec basename {} \; | sort)
 

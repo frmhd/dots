@@ -13,12 +13,28 @@ ln -snf "$theme_path" "$HOME/.config/omarchy/current/theme"
 bg=$(find "$theme_path/backgrounds" -type f | head -n1)
 ln -snf "$bg" "$HOME/.config/omarchy/current/background"
 
+PI_THEME=""
+
 if [[ -f "$theme_path/light.mode" ]]; then
     gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
     gsettings set org.gnome.desktop.interface color-scheme "prefer-light"
+    PI_THEME="light"
 else
     gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
     gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+    PI_THEME="dark"
+fi
+
+# Toggle pi theme to match system theme
+PI_SETTINGS="$HOME/.pi/agent/settings.json"
+if [[ -n "$PI_THEME" ]] && [[ -f "$PI_SETTINGS" ]] && command -v jq &>/dev/null; then
+    if jq --arg theme "$PI_THEME" '.theme = $theme' "$PI_SETTINGS" > "$PI_SETTINGS.tmp" 2>/dev/null && mv "$PI_SETTINGS.tmp" "$PI_SETTINGS"; then
+        echo "[set-theme] ✓ pi theme set to '$PI_THEME' (run '/reload' or restart pi to apply)"
+    else
+        echo "[set-theme] ✗ failed to set pi theme to '$PI_THEME'"
+    fi
+else
+    echo "[set-theme] ⚠ pi theme not changed: settings file or jq not found"
 fi
 
 # Restart affected applications

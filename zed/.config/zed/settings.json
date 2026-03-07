@@ -45,6 +45,9 @@
       "type": "custom",
       "command": "opencode-local",
       "args": ["acp"],
+      "env": {
+        "OPENCODE_DISABLE_CHANNEL_DB": "1",
+      },
     },
     "codex-acp": {
       "default_config_options": {

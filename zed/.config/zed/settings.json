@@ -32,7 +32,7 @@
     "dock": "left",
   },
   "git_panel": {
-    "tree_view": true,
+    "tree_view": false,
   },
   "agent_servers": {
     "opencode": {
@@ -55,17 +55,6 @@
         "model": "gpt-5.4",
       },
       "type": "registry",
-    },
-    "pi": {
-      "default_model": "ollama/kimi-k2.5:cloud",
-      "type": "custom",
-      "command": "node",
-      "args": ["/home/frmhd/dev/github/pi-acp/dist/index.js"],
-      "favorite_models": [
-        "ollama/minimax-m2.5:cloud",
-        "openai-codex/gpt-5.3-codex",
-        "ollama/kimi-k2.5:cloud",
-      ],
     },
   },
   "language_models": {

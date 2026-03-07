@@ -3,12 +3,12 @@ workspace "browser" {
         struts {
             left 16
             right 16
-            top 16
-            bottom 16
+            top 0
+            bottom 0
         }
 
         gaps 32
-        center-focused-column "always"
+        // center-focused-column "always"
         default-column-width { proportion 0.5; }
     }
 }

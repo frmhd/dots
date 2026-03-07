@@ -19,8 +19,8 @@ binds {
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+T hotkey-overlay-title="Themes menu" { spawn-sh "/home/frmhd/dev/system/dots/themes/theme-picker.sh"; }
-    Mod+Shift+T hotkey-overlay-title="Toggle Handy transcription" { spawn "handy" "--toggle-transcription"; }
-    Mod+Shift+Y hotkey-overlay-title="Toggle Handy transcription (with post-process)" { spawn "handy" "--toggle_post_process"; }
+    Mod+Scroll_Lock hotkey-overlay-title="Toggle Handy transcription" { spawn "handy" "--toggle-transcription"; }
+    Mod+Pause hotkey-overlay-title="Toggle Handy transcription (with post-process)" { spawn "handy" "--toggle-post-process"; }
     Mod+Alt+V hotkey-overlay-title="Clipboard History" { spawn-sh "/home/frmhd/dev/system/dots/themes/clipboard-picker.sh"; }
     Mod+B hotkey-overlay-title="Browser menu" { spawn-sh "/home/frmhd/dev/system/dots/themes/set-next-bg.sh"; }
     Mod+Shift+W hotkey-overlay-title="Pick wallpaper" { spawn-sh "/home/frmhd/dev/system/dots/themes/wallpaper-picker.sh"; }

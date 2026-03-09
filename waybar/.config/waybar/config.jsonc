@@ -5,7 +5,7 @@
   "spacing": 0,
   "height": 26,
   "modules-left": ["niri/workspaces", "mpris"],
-  "modules-center": ["clock"],
+  "modules-center": ["clock", "idle_inhibitor"],
   "modules-right": [
     "custom/calendar",
     "group/tray-expander",
@@ -78,6 +78,13 @@
     "format-alt": "{:L%d %B W%V %Y}",
     "tooltip": false,
     "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select",
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰛊", // Coffee cup (Awake)
+      "deactivated": "󰾫", // Coffee cup with a slash or dimmed (Idle enabled)
+    },
   },
   "custom/calendar": {
     "format": "{}",

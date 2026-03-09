@@ -5,9 +5,7 @@
   "spacing": 0,
   "height": 26,
   "modules-left": ["niri/workspaces", "mpris"],
-  "modules-center": [
-    "clock"
-  ],
+  "modules-center": ["clock"],
   "modules-right": [
     "custom/calendar",
     "group/tray-expander",
@@ -17,6 +15,7 @@
     "pulseaudio",
     "cpu",
     "memory",
+    "battery",
   ],
   "mpris": {
     "format": "|  {status_icon}  {title} - {artist}",
@@ -102,7 +101,7 @@
   },
   "battery": {
     "format": "{capacity}% {icon}",
-    "format-discharging": "{icon}",
+    "format-discharging": " bat: {capacity}%",
     "format-charging": "{icon}",
     "format-plugged": "",
     "format-icons": {
@@ -119,6 +118,25 @@
       "critical": 10,
     },
   },
+  // "battery": {
+  //   "format": "{capacity}% {icon}",
+  //   "format-discharging": "{capacity}% {icon}",
+  //   "format-charging": "{icon}",
+  //   "format-plugged": "",
+  //   "format-icons": {
+  //     "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+  //     "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+  //   },
+  //   "format-full": "󰂅",
+  //   "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
+  //   "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
+  //   "interval": 5,
+  //   "on-click": "omarchy-menu power",
+  //   "states": {
+  //     "warning": 20,
+  //     "critical": 10,
+  //   },
+  // },
   "bluetooth": {
     "format": "",
     "format-disabled": "󰂲",

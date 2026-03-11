@@ -126,9 +126,10 @@ export OPENCODE_EXPERIMENTAL_PLAN_MODE=1
 export OPENCODE_EXPERIMENTAL_MARKDOWN=1
 export OPENCODE_DISABLE_CHANNEL_DB=1
 
+export GEMINI_FORCE_FILE_STORAGE=true
+
 alias clauded="claude --allow-dangerously-skip-permissions"
 alias zdots="zed /home/frmhd/dev/system/dots"
-
 
 # opencode
 export PATH=/home/frmhd/.opencode/bin:$PATH

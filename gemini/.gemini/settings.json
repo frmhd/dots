@@ -1,26 +1,12 @@
 {
-  "security": {
-    "auth": {
-      "selectedType": "oauth-personal"
-    },
-    "enablePermanentToolApproval": true
-  },
   "general": {
     "previewFeatures": true,
     "enablePromptCompletion": false,
     "sessionRetention": {
-      "warningAcknowledged": true,
       "enabled": true,
-      "maxAge": "30d"
-    },
-    "defaultApprovalMode": "default"
-  },
-  "ui": {
-    "theme": "Default Light"
-  },
-  "experimental": {
-    "skills": true,
-    "plan": true
+      "maxAge": "30d",
+      "warningAcknowledged": true
+    }
   },
   "context": {
     "fileName": [
@@ -28,5 +14,10 @@
       "CLAUDE.md",
       "GEMINI.md"
     ]
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
   }
 }

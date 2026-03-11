@@ -115,7 +115,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # bun completions
-[ -s "/home/frmhd/.bun/_bun" ] && source "/home/frmhd/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -129,10 +129,11 @@ export OPENCODE_DISABLE_CHANNEL_DB=1
 export GEMINI_FORCE_FILE_STORAGE=true
 
 alias clauded="claude --allow-dangerously-skip-permissions"
-alias zdots="zed /home/frmhd/dev/system/dots"
+export DOTS_DIR="${DOTS_DIR:-$HOME/dev/system/dots}"
+alias zdots="zed $DOTS_DIR"
 
 # opencode
-export PATH=/home/frmhd/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 export PATH=$JAVA_HOME/bin:$PATH
 

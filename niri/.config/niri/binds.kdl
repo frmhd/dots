@@ -20,7 +20,7 @@ binds {
     Mod+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+T hotkey-overlay-title="Themes menu" { spawn-sh "$HOME/dev/system/dots/themes/theme-picker.sh"; }
     Mod+Scroll_Lock hotkey-overlay-title="Toggle Handy transcription" { spawn "handy" "--toggle-transcription"; }
-    Mod+Pause hotkey-overlay-title="Toggle Handy transcription (with post-process)" { spawn "handy" "--toggle-post-process"; }
+    Mod+Ctrl+Scroll_Lock hotkey-overlay-title="Toggle Handy transcription (with post-process)" { spawn "handy" "--toggle-post-process"; }
     Mod+Alt+V hotkey-overlay-title="Clipboard History" { spawn-sh "$HOME/dev/system/dots/themes/clipboard-picker.sh"; }
     Mod+B hotkey-overlay-title="Browser menu" { spawn-sh "$HOME/dev/system/dots/themes/set-next-bg.sh"; }
     Mod+Shift+W hotkey-overlay-title="Pick wallpaper" { spawn-sh "$HOME/dev/system/dots/themes/wallpaper-picker.sh"; }

@@ -19,5 +19,8 @@
     "auth": {
       "selectedType": "oauth-personal"
     }
+  },
+  "ui": {
+    "theme": "Default Light"
   }
 }

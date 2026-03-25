@@ -6,6 +6,7 @@ set -euo pipefail
 
 # Configuration
 REPO_URL="https://github.com/frmhd/dots.git"  # Update with your repo
+REPO_BRANCH="main"
 DOTS_DIR="$HOME/dev/system/dots"
 
 # Colors
@@ -43,11 +44,13 @@ fi
 if [[ -d "$DOTS_DIR" ]]; then
     echo -e "  → Updating dotfiles..."
     cd "$DOTS_DIR"
-    git pull
+    git fetch origin "$REPO_BRANCH"
+    git checkout "$REPO_BRANCH"
+    git pull origin "$REPO_BRANCH"
 else
     echo -e "  → Cloning dotfiles..."
     mkdir -p "$(dirname "$DOTS_DIR")"
-    git clone "$REPO_URL" "$DOTS_DIR"
+    git clone --branch "$REPO_BRANCH" "$REPO_URL" "$DOTS_DIR"
 fi
 
 # Run setup

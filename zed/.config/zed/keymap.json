@@ -16,7 +16,7 @@
           ["task::Spawn", { "task_name": "Toggle Niri Fullscreen" }],
         ],
       ],
-      "ctrl-k a o": ["task::Spawn", { "task_name": "OpenCode Local" }],
+      "ctrl-k a o": ["task::Spawn", { "task_name": "OpenCode" }],
       "ctrl-k a p": ["task::Spawn", { "task_name": "pi" }],
       "ctrl-k a g": ["task::Spawn", { "task_name": "Gemini CLI" }],
     },

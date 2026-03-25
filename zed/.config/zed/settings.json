@@ -8,6 +8,18 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   "agent": {
+    "tool_permissions": {
+      "tools": {
+        "terminal": {
+          "default": "allow",
+          "always_allow": [
+            {
+              "pattern": "^git\\b"
+            }
+          ]
+        }
+      }
+    },
     "single_file_review": true,
     "default_model": {
       "provider": "ollama",
@@ -32,7 +44,7 @@
     "dock": "left",
   },
   "git_panel": {
-    "tree_view": false,
+    "tree_view": true,
   },
   "agent_servers": {
     "opencode": {
@@ -55,6 +67,14 @@
         "model": "gpt-5.4",
       },
       "type": "registry",
+    },
+    "pi": {
+      "type": "custom",
+      "command": "node",
+      "args": ["/home/frmhd/dev/github/pi-acp/dist/index.js"],
+      "env": {
+        "PI_ACP_STARTUP_INFO": "true",
+      },
     },
   },
   "language_models": {
@@ -169,7 +189,7 @@
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "theme": {
     "mode": "system",
-    "dark": "Flexoki Dark",
+    "dark": "One Dark",
     "light": "One Light",
   },
 }

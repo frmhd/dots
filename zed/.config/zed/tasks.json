@@ -25,14 +25,9 @@
     "hide": "on_success",
   },
   {
-    "label": "OpenCode Local",
+    "label": "OpenCode",
     "command": "alacritty",
-    "args": [
-      "--working-directory",
-      "$ZED_WORKTREE_ROOT",
-      "-e",
-      "opencode-local",
-    ],
+    "args": ["--working-directory", "$ZED_WORKTREE_ROOT", "-e", "opencode"],
     "cwd": "$ZED_WORKTREE_ROOT",
     "use_new_terminal": true,
     "allow_concurrent_runs": true,

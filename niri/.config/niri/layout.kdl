@@ -8,13 +8,13 @@ layout {
     // Top and bottom struts will simply add outer gaps in addition to the area occupied by
     // layer-shell panels and regular gaps.
     struts {
-        left 0
-        right 0
+        left 32
+        right 32
         top 0
         bottom 0
     }
 
-    gaps 8
+    gaps 32
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left

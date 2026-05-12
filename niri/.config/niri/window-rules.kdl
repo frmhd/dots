@@ -110,10 +110,10 @@ window-rule {
 
 window-rule {
     match is-active=false
-    opacity 0.9
+    opacity 0.85
 
     background-effect {
-        noise 0.5
+        noise 0
         saturation 1
     }
 }

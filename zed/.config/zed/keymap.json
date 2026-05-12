@@ -9,13 +9,13 @@
   {
     "context": "Workspace",
     "bindings": {
-      "ctrl-alt-b": [
-        "action::Sequence",
-        [
-          "workspace::ToggleRightDock",
-          ["task::Spawn", { "task_name": "Toggle Niri Fullscreen" }],
-        ],
-      ],
+      // "ctrl-alt-b": [
+      //   "action::Sequence",
+      //   [
+      //     "workspace::ToggleRightDock",
+      //     ["task::Spawn", { "task_name": "Toggle Niri Fullscreen" }],
+      //   ],
+      // ],
       "ctrl-k a o": ["task::Spawn", { "task_name": "OpenCode" }],
       "ctrl-k a p": ["task::Spawn", { "task_name": "pi" }],
       "ctrl-k a g": ["task::Spawn", { "task_name": "Gemini CLI" }],
@@ -33,7 +33,7 @@
     },
   },
   {
-    "context": "(Editor && edit_prediction_conflict)",
+    "context": "(Editor && (edit_prediction && (showing_completions || in_leading_whitespace)))",
     "bindings": {
       "alt-1": "editor::AcceptEditPrediction",
     },

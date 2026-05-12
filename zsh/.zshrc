@@ -121,7 +121,6 @@ export NVM_DIR="$HOME/.nvm"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-export OPENCODE_ENABLE_EXA=1
 export OPENCODE_EXPERIMENTAL_PLAN_MODE=1
 export OPENCODE_EXPERIMENTAL_MARKDOWN=1
 export OPENCODE_DISABLE_CHANNEL_DB=1
@@ -132,7 +131,7 @@ alias clauded="claude --allow-dangerously-skip-permissions"
 export DOTS_DIR="${DOTS_DIR:-$HOME/dev/system/dots}"
 alias zdots="zed $DOTS_DIR"
 
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
 export PATH=$JAVA_HOME/bin:$PATH
 
 export ANDROID_HOME=$HOME/Android/Sdk
@@ -142,3 +141,6 @@ export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 
 # opencode
 export PATH=/home/frmhd/.opencode/bin:$PATH
+
+# Vite+ bin (https://viteplus.dev)
+. "$HOME/.vite-plus/env"

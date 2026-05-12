@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "instructions": ["CLAUDE.md", "AGENTS.md", "GEMINI.md"],
+  // "instructions": ["CLAUDE.md", "AGENTS.md", "GEMINI.md"],
   "lsp": false,
   "provider": {
     "ollama": {
@@ -27,6 +27,14 @@
             "output": 128000,
           },
           "name": "nemotron-3-super:cloud",
+        },
+
+        "qwen3.5:cloud": {
+          "limit": {
+            "context": 262144,
+            "output": 81920,
+          },
+          "name": "qwen3.5:cloud",
         },
       },
       "name": "Ollama (local)",

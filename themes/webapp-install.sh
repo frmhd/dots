@@ -37,11 +37,18 @@ else
   ICON_PATH="$ICON_DIR/$ICON_REF"
 fi
 
-# Use custom exec if provided, otherwise default behavior
+# Use custom exec if provided, otherwise detect default browser
 if [[ -n $CUSTOM_EXEC ]]; then
   EXEC_COMMAND="$CUSTOM_EXEC"
 else
-  EXEC_COMMAND="brave --app=$APP_URL"
+  # Detect default browser from xdg-settings and extract binary
+  DEFAULT_BROWSER_DESKTOP=$(xdg-settings get default-web-browser 2>/dev/null || echo "")
+  if [[ -n "$DEFAULT_BROWSER_DESKTOP" && -f "/usr/share/applications/$DEFAULT_BROWSER_DESKTOP" ]]; then
+    BROWSER_BIN=$(grep -m1 '^Exec=' "/usr/share/applications/$DEFAULT_BROWSER_DESKTOP" | sed 's/^Exec=//; s/ .*//' | xargs basename)
+  fi
+  # Fallback to chromium if detection fails
+  BROWSER_BIN="${BROWSER_BIN:-chromium}"
+  EXEC_COMMAND="$BROWSER_BIN --app=$APP_URL"
 fi
 
 # Create application .desktop file
@@ -67,5 +74,6 @@ fi
 chmod +x "$DESKTOP_FILE"
 
 if [[ $INTERACTIVE_MODE == true ]]; then
-  echo -e "You can now find $APP_NAME using the app launcher (SUPER + SPACE)\n"
+  echo -e "You can now find $APP_NAME using the app launcher (SUPER + SPACE)"
+  echo -e "Browser: $BROWSER_BIN\n"
 fi

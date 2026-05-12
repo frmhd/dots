@@ -20,11 +20,11 @@ window-rule {
     open-floating true
 
     // Set the window size
-    default-column-width { fixed 420; }
-    default-window-height { fixed 240; }
+    default-column-width { fixed 288; }
+    default-window-height { fixed 164; }
 
     // Set the position (e.g., bottom-right corner with 20px offset)
-    default-floating-position x=40 y=40 relative-to="bottom-left"
+    default-floating-position x=14 y=40 relative-to="bottom-left"
 }
 
 window-rule {
@@ -79,7 +79,7 @@ window-rule {
     match app-id=r#"^code-insiders"#
     match app-id=r#"^code"#
 
-    default-column-width { proportion 1.0; }
+    open-maximized true
 }
 
 /-window-rule {
@@ -100,16 +100,27 @@ window-rule {
     geometry-corner-radius 0
     clip-to-geometry true
     draw-border-with-background false
+
+    background-effect {
+        blur true
+        noise 0.03
+        saturation 2
+    }
 }
 
 window-rule {
     match is-active=false
-    opacity 0.95
+    opacity 0.9
+
+    background-effect {
+        noise 0.5
+        saturation 1
+    }
 }
 
 window-rule {
     match is-active=true
-    opacity 0.99
+    opacity 0.95
 }
 
 window-rule {

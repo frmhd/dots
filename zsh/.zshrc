@@ -127,9 +127,12 @@ export OPENCODE_DISABLE_CHANNEL_DB=1
 
 export GEMINI_FORCE_FILE_STORAGE=true
 
-alias clauded="claude --allow-dangerously-skip-permissions"
+alias agent="agent --model composer-2.5 --yolo"
 export DOTS_DIR="${DOTS_DIR:-$HOME/dev/system/dots}"
 alias zdots="zed $DOTS_DIR"
+
+alias pn="pnpm"
+alias pnx="pnpm dlx"
 
 export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
 export PATH=$JAVA_HOME/bin:$PATH

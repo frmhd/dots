@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "feature_flags": {
+    "acp-beta": "on",
+  },
   "diff_view_style": "unified",
   "cli_default_open_behavior": "existing_window",
   "icon_theme": {
@@ -28,6 +31,7 @@
     "tree_view": true,
   },
   "agent": {
+    "default_width": 640,
     "flexible": false,
     "thinking_display": "auto",
     "expand_edit_card": true,
@@ -49,16 +53,43 @@
     },
     "single_file_review": true,
     "default_model": {
-      "provider": "opencode",
-      "model": "go/deepseek-v4-flash",
+      "provider": "KFC",
+      "model": "kimi-for-coding",
       "enable_thinking": false,
     },
     "favorite_models": [],
     "model_parameters": [],
   },
   "agent_servers": {
+    // "agy-py": {
+    //   "type": "custom",
+    //   "command": "uv",
+    //   "args": [
+    //     "--directory",
+    //     "/home/frmhd/dev/pets/antigravity-sdk-acp-adapter",
+    //     "run",
+    //     "src/main.py",
+    //   ],
+    // },
+    "Cursor": {
+      "type": "custom",
+      "command": "/home/frmhd/dev/pets/cursor-sdk-acp-adapter/dist/cli.mjs",
+    },
+    "opencode": {
+      "default_config_options": {
+        "model": "opencode/deepseek-v4-flash-free",
+        "effort": "max",
+      },
+      "favorite_config_option_values": {
+        "model": ["opencode/deepseek-v4-flash-free", "kimi-for-coding/k2p6"],
+      },
+      "type": "registry",
+      "env": {
+        // "OPENCODE_ACP_NEXT": "1",
+      },
+    },
     "gemini": {
-      "default_model": "auto-gemini-3",
+      "default_model": "gemini-3-flash-preview",
       "type": "registry",
     },
     "Pi": {
@@ -74,13 +105,14 @@
         ],
       },
       "default_config_options": {
+        "model": "{\"provider\":\"kimi-coding\",\"id\":\"kimi-for-coding\"}",
         "thinking_level": "xhigh",
       },
       "type": "custom",
       "command": "node",
       "args": ["/home/frmhd/dev/pets/pi-sdk-acp-adapter/dist/cli.mjs"],
       "env": {
-        "PI_ACP_SMALL_MODEL": "opencode-go/deepseek-v4-flash",
+        "PI_ACP_SMALL_MODEL": "opencode/deepseek-v4-flash-free",
       },
     },
   },
@@ -106,6 +138,27 @@
           "subscription": "go",
         },
       ],
+    },
+    "openai_compatible": {
+      "KFC": {
+        "api_url": "https://api.kimi.com/coding/v1",
+        "available_models": [
+          {
+            "name": "kimi-for-coding",
+            "display_name": "Kimi K2.6",
+            "reasoning_effort": "high",
+            "max_tokens": 262144,
+            "max_output_tokens": 32768,
+            "capabilities": {
+              "tools": true,
+              "images": true,
+              // "interleaved_reasoning": true,
+              "prompt_cache_key": true,
+              "parallel_tool_calls": false,
+            },
+          },
+        ],
+      },
     },
     "ollama": {
       "api_url": "http://localhost:11434",

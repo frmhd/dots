@@ -287,9 +287,9 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 
-    Mod+Shift+B { spawn "brave"; }
-    Mod+Shift+A { spawn "brave" "--app=https://google.com/ai" "--profile-directory=Default"; }
-    Mod+Shift+G { spawn "brave" "--app=https://gemini.google.com" "--profile-directory=Default"; }
-    Mod+Shift+X { spawn "brave" "--app=https://x.com" "--profile-directory=Default"; }
-    Mod+Shift+M { spawn "brave" "--app=https://meet.google.com" "--profile-directory=Profile 1"; }
+    Mod+Shift+B { spawn "helium-browser"; }
+    Mod+Shift+A { spawn "helium-browser" "--app=https://google.com/ai" "--profile-directory=Default"; }
+    Mod+Shift+G { spawn "helium-browser" "--app=https://gemini.google.com" "--profile-directory=Default"; }
+    Mod+Shift+X { spawn "helium-browser" "--app=https://x.com" "--profile-directory=Default"; }
+    Mod+Shift+M { spawn "helium-browser" "--app=https://meet.google.com" "--profile-directory=Profile 1"; }
 }

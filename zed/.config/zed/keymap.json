@@ -44,4 +44,15 @@
       "alt-1": "editor::AcceptEditPrediction",
     },
   },
+  {
+    "bindings": {
+      "ctrl-alt-shift-b": "git::BranchDiff"
+    }
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "ctrl-alt-shift-b": "git::Branch"
+    }
+  }
 ]

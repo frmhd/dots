@@ -104,13 +104,13 @@ window-rule {
     background-effect {
         blur true
         noise 0.03
-        saturation 2
+        saturation 1
     }
 }
 
 window-rule {
     match is-active=false
-    opacity 0.85
+    opacity 0.9
 
     background-effect {
         noise 0
@@ -120,7 +120,15 @@ window-rule {
 
 window-rule {
     match is-active=true
-    opacity 0.95
+    opacity 1.0
+}
+
+window-rule {
+    match app-id=r#"^org\.gnome\.Weather$"#
+
+    open-floating true
+    default-column-width { fixed 1022; }
+    default-window-height { fixed 590; }
 }
 
 window-rule {
@@ -130,4 +138,33 @@ window-rule {
     default-floating-position x=40 y=8 relative-to="top-right"
     default-column-width { fixed 800; }
     default-window-height { fixed 800; }
+}
+
+window-rule {
+    match app-id=r#"^Handy$"#
+    match title="^Recording$"
+    open-floating true
+
+    default-column-width { fixed 100; }
+    default-window-height { fixed 40; }
+
+    // Bottom-center: relative-to="bottom" centers on the bottom edge
+    default-floating-position x=0 y=20 relative-to="bottom"
+}
+
+// Shadow and rounded corners for all floating windows.
+window-rule {
+    match is-floating=true
+
+    geometry-corner-radius 4
+    clip-to-geometry true
+
+    shadow {
+        on
+        softness 40
+        spread 5
+        offset x=0 y=5
+        draw-behind-window true
+        color "#00000064"
+    }
 }

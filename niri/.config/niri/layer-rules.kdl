@@ -4,3 +4,30 @@ layer-rule {
 
     block-out-from "screen-capture"
 }
+
+layer-rule {
+    match namespace="waybar"
+
+    opacity 0.9
+    background-effect {
+        // xray true
+        blur true
+        noise 0.05
+        saturation 1
+    }
+}
+
+layer-rule {
+    match namespace="^launcher$"
+
+    geometry-corner-radius 4
+
+    shadow {
+        on
+        softness 40
+        spread 5
+        offset x=0 y=5
+        draw-behind-window true
+        color "#00000064"
+    }
+}

@@ -7,40 +7,51 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "vim_mode": false,
   "feature_flags": {
     "acp-beta": "on",
   },
   "diff_view_style": "unified",
   "cli_default_open_behavior": "existing_window",
   "icon_theme": {
-    "mode": "dark",
+    "mode": "system",
     "light": "Zed (Default)",
     "dark": "Zed (Default)",
   },
   "outline_panel": {
-    "dock": "right",
+    "dock": "left",
   },
   "collaboration_panel": {
-    "dock": "right",
+    "dock": "left",
   },
   "project_panel": {
-    "dock": "right",
+    "dock": "left",
   },
   "git_panel": {
-    "dock": "right",
+    "dock": "left",
     "tree_view": true,
   },
   "agent": {
-    "default_width": 640,
+    "default_width": 700,
     "flexible": false,
     "thinking_display": "auto",
     "expand_edit_card": true,
     "expand_terminal_card": false,
     "play_sound_when_agent_done": "always",
-    "sidebar_side": "left",
-    "dock": "left",
+    "sidebar_side": "right",
+    "dock": "right",
+    "commit_message_instructions": "You are a commit message generator. Follow the Conventional Commits specification: <type>[optional scope]: <description> [optional body] [optional footer(s)] Rules: - Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert - Description: imperative mood, lowercase, no period, max 72 chars - Add ! after type/scope for breaking changes, or BREAKING CHANGE: footer - Body: explain what and why, wrap at 72 chars - Output only the commit message, no preamble or quotes",
+    "commit_message_model": {
+      "provider": "opencode",
+      "model": "deepseek-v4-flash-free",
+      "enable_thinking": true,
+      "speed": "standard",
+    },
     "tool_permissions": {
       "tools": {
+        "skill": {
+          "default": "allow",
+        },
         "terminal": {
           "default": "allow",
           "always_allow": [
@@ -53,24 +64,21 @@
     },
     "single_file_review": true,
     "default_model": {
-      "provider": "KFC",
-      "model": "kimi-for-coding",
-      "enable_thinking": false,
+      "effort": "max",
+      "provider": "deepseek",
+      "model": "deepseek-v4-pro",
+      "enable_thinking": true,
     },
-    "favorite_models": [],
+    "favorite_models": [
+      {
+        "provider": "ollama",
+        "model": "gemma4:31b-cloud",
+        "enable_thinking": true,
+      },
+    ],
     "model_parameters": [],
   },
   "agent_servers": {
-    // "agy-py": {
-    //   "type": "custom",
-    //   "command": "uv",
-    //   "args": [
-    //     "--directory",
-    //     "/home/frmhd/dev/pets/antigravity-sdk-acp-adapter",
-    //     "run",
-    //     "src/main.py",
-    //   ],
-    // },
     "Cursor": {
       "type": "custom",
       "command": "/home/frmhd/dev/pets/cursor-sdk-acp-adapter/dist/cli.mjs",
@@ -101,11 +109,12 @@
           "{\"provider\":\"kimi-coding\",\"id\":\"k2p6\"}",
           "{\"provider\":\"opencode-go\",\"id\":\"deepseek-v4-flash\"}",
           "{\"provider\":\"opencode-go\",\"id\":\"deepseek-v4-pro\"}",
-          "{\"provider\":\"kimi-coding\",\"id\":\"kimi-for-coding\"}",
+          "{\"provider\":\"openai-codex\",\"id\":\"gpt-5.5\"}",
+          "{\"provider\":\"opencode\",\"id\":\"deepseek-v4-flash-free\"}",
         ],
       },
       "default_config_options": {
-        "model": "{\"provider\":\"kimi-coding\",\"id\":\"kimi-for-coding\"}",
+        "model": "{\"provider\":\"cursor\",\"id\":\"composer-2.5\"}",
         "thinking_level": "xhigh",
       },
       "type": "custom",
@@ -113,11 +122,13 @@
       "args": ["/home/frmhd/dev/pets/pi-sdk-acp-adapter/dist/cli.mjs"],
       "env": {
         "PI_ACP_SMALL_MODEL": "opencode/deepseek-v4-flash-free",
+        "PI_ACP_LOCAL_TOOLS": "1",
       },
     },
   },
   "language_models": {
     "opencode": {
+      "show_go_models": false,
       "show_free_models": true,
       "show_zen_models": false,
       "available_models": [
@@ -217,7 +228,7 @@
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "theme": {
     "mode": "system",
-    "dark": "One Dark",
+    "dark": "Gruvbox Dark",
     "light": "One Light",
   },
 }

@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":$HOME/.zsh/completions:"* ]]; then export FPATH="$HOME/.zsh/completions:$FPATH"; fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -127,9 +129,17 @@ export OPENCODE_DISABLE_CHANNEL_DB=1
 
 export GEMINI_FORCE_FILE_STORAGE=true
 
-alias agent="agent --model composer-2.5 --yolo"
 export DOTS_DIR="${DOTS_DIR:-$HOME/dev/system/dots}"
 alias zdots="zed $DOTS_DIR"
+alias pie="cd $HOME/dev/system/pi-home && pi"
+
+# Auto-redirect pi to ~/dev/system/pi-home when started from $HOME
+pi() {
+  if [ "$PWD" = "$HOME" ]; then
+    cd $HOME/dev/system/pi-home || true
+  fi
+  command pi "$@"
+}
 
 alias pn="pnpm"
 alias pnx="pnpm dlx"
@@ -143,7 +153,12 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 
 # opencode
-export PATH=/home/frmhd/.opencode/bin:$PATH
+export PATH=$HOME/.opencode/bin:$PATH
 
 # Vite+ bin (https://viteplus.dev)
 . "$HOME/.vite-plus/env"
+
+
+# Added by Antigravity CLI installer
+export PATH="$HOME/.local/bin:$PATH"
+. "$HOME/.deno/env"

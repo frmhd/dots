@@ -19,6 +19,12 @@
       "ctrl-k a o": ["task::Spawn", { "task_name": "OpenCode" }],
       "ctrl-k a p": ["task::Spawn", { "task_name": "pi" }],
       "ctrl-k a g": ["task::Spawn", { "task_name": "Gemini CLI" }],
+      "ctrl-k a c": ["task::Spawn", { "task_name": "Cursor CLI" }],
+      "ctrl-k j": ["task::Spawn", { "task_name": "Alacritty" }],
+      "ctrl-shift-g": [
+        "action::Sequence",
+        ["git::Diff", "git_panel::ToggleFocus"],
+      ],
     },
   },
   {
@@ -46,13 +52,13 @@
   },
   {
     "bindings": {
-      "ctrl-alt-shift-b": "git::BranchDiff"
-    }
+      "ctrl-alt-shift-b": "git::BranchDiff",
+    },
   },
   {
     "context": "Workspace",
     "unbind": {
-      "ctrl-alt-shift-b": "git::Branch"
-    }
-  }
+      "ctrl-alt-shift-b": "git::Branch",
+    },
+  },
 ]

@@ -1,0 +1,173 @@
+#!/bin/bash
+
+set -euo pipefail
+
+DOWNLOADS_DIR="$HOME/Downloads"
+APPLICATIONS_DIR="$HOME/Applications"
+DESKTOP_DIR="$HOME/.local/share/applications"
+ICON_DIR="$HOME/.local/share/applications/icons"
+
+slugify() {
+  echo "$1" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | sed 's/[^a-z0-9._-]//g'
+}
+
+extract_appimage_metadata() {
+  local appimage="$1"
+  local app_id="$2"
+  local tmpdir
+  tmpdir=$(mktemp -d)
+
+  if ! (cd "$tmpdir" && "$appimage" --appimage-extract >/dev/null 2>&1); then
+    rm -rf "$tmpdir"
+    return 1
+  fi
+
+  local root="$tmpdir/squashfs-root"
+  local desktop
+  desktop=$(find "$root" -name '*.desktop' -type f 2>/dev/null | head -1)
+
+  META_NAME=""
+  META_COMMENT=""
+  local icon_name=""
+  if [[ -n "$desktop" ]]; then
+    META_NAME=$(grep -m1 '^Name=' "$desktop" | cut -d= -f2- || true)
+    META_COMMENT=$(grep -m1 '^Comment=' "$desktop" | cut -d= -f2- || true)
+    icon_name=$(grep -m1 '^Icon=' "$desktop" | cut -d= -f2- || true)
+  fi
+
+  META_ICON_SRC=""
+  if [[ -n "$icon_name" ]]; then
+    META_ICON_SRC=$(find "$root" -type f \( \
+      -name "$icon_name" \
+      -o -name "${icon_name}.png" \
+      -o -name "${icon_name}.svg" \
+      -o -name "${icon_name}.xpm" \
+    \) 2>/dev/null | head -1 || true)
+  fi
+  if [[ -z "$META_ICON_SRC" ]]; then
+    META_ICON_SRC=$(find "$root" -path '*/share/icons/*' -type f \( -name '*.png' -o -name '*.svg' -o -name '*.xpm' \) 2>/dev/null | sort -V | tail -1 || true)
+  fi
+  if [[ -z "$META_ICON_SRC" ]]; then
+    META_ICON_SRC=$(find "$root" -maxdepth 3 -type f \( -name '*.png' -o -name '*.svg' -o -name '*.xpm' \) 2>/dev/null | head -1 || true)
+  fi
+
+  if [[ -n "$META_ICON_SRC" ]]; then
+    local icon_ext="${META_ICON_SRC##*.}"
+    META_ICON_DST="$ICON_DIR/$app_id.$icon_ext"
+    cp "$META_ICON_SRC" "$META_ICON_DST"
+  fi
+
+  rm -rf "$tmpdir"
+}
+
+install_appimage() {
+  local source_path="$1"
+  local filename
+  filename=$(basename "$source_path")
+  local stem="${filename%.AppImage}"
+  stem="${stem%.appimage}"
+  local app_id
+  app_id=$(slugify "$stem")
+  local dest_path="$APPLICATIONS_DIR/$filename"
+
+  mkdir -p "$APPLICATIONS_DIR" "$DESKTOP_DIR" "$ICON_DIR"
+
+  if [[ "$source_path" != "$dest_path" ]]; then
+    mv -f "$source_path" "$dest_path"
+  fi
+  chmod +x "$dest_path"
+
+  local display_name="$stem"
+  local comment="AppImage application"
+  local icon_path=""
+
+  META_ICON_DST=""
+  rm -f "$ICON_DIR/$app_id".{png,svg,xpm}
+  if extract_appimage_metadata "$dest_path" "$app_id"; then
+    [[ -n "${META_NAME:-}" ]] && display_name="$META_NAME"
+    [[ -n "${META_COMMENT:-}" ]] && comment="$META_COMMENT"
+  fi
+
+  for ext in png svg xpm; do
+    if [[ -f "$ICON_DIR/$app_id.$ext" ]]; then
+      icon_path="$ICON_DIR/$app_id.$ext"
+      break
+    fi
+  done
+
+  local desktop_file="$DESKTOP_DIR/$app_id.desktop"
+  {
+    echo "[Desktop Entry]"
+    echo "Version=1.0"
+    echo "Type=Application"
+    echo "Name=$display_name"
+    echo "Comment=$comment"
+    echo "Exec=$dest_path %U"
+    echo "Terminal=false"
+    echo "StartupNotify=true"
+    echo "X-AppImage-Install=true"
+    echo "X-AppImage-Path=$dest_path"
+    if [[ -n "$icon_path" ]]; then
+      echo "Icon=$icon_path"
+    fi
+  } >"$desktop_file"
+  chmod +x "$desktop_file"
+
+  echo "Installed $display_name -> $dest_path"
+}
+
+APPIMAGES=()
+
+if [[ "$#" -gt 0 ]]; then
+  for arg in "$@"; do
+    if [[ -f "$arg" ]]; then
+      APPIMAGES+=("$arg")
+    elif [[ -f "$DOWNLOADS_DIR/$arg" ]]; then
+      APPIMAGES+=("$DOWNLOADS_DIR/$arg")
+    elif [[ -f "$DOWNLOADS_DIR/${arg%.AppImage}.AppImage" ]]; then
+      APPIMAGES+=("$DOWNLOADS_DIR/${arg%.AppImage}.AppImage")
+    else
+      echo "AppImage not found: $arg" >&2
+      exit 1
+    fi
+  done
+else
+  while IFS= read -r -d '' file; do
+    APPIMAGES+=("$file")
+  done < <(find "$DOWNLOADS_DIR" -maxdepth 1 -type f -iname '*.appimage' -print0 2>/dev/null || true)
+
+  if ((${#APPIMAGES[@]} == 0)); then
+    echo "No AppImage files found in $DOWNLOADS_DIR"
+    exit 1
+  fi
+
+  if ((${#APPIMAGES[@]} > 1)); then
+    LABELS=()
+    for file in "${APPIMAGES[@]}"; do
+      LABELS+=("$(basename "$file")")
+    done
+    IFS=$'\n' SORTED_LABELS=($(sort <<<"${LABELS[*]}"))
+    unset IFS
+    SELECTED=$(gum choose --no-limit --header "Select AppImages to install..." "${SORTED_LABELS[@]}")
+    SELECTED_APPIMAGES=()
+    while IFS= read -r line; do
+      [[ -n "$line" ]] || continue
+      for file in "${APPIMAGES[@]}"; do
+        if [[ "$(basename "$file")" == "$line" ]]; then
+          SELECTED_APPIMAGES+=("$file")
+          break
+        fi
+      done
+    done <<<"$SELECTED"
+    APPIMAGES=("${SELECTED_APPIMAGES[@]}")
+  fi
+fi
+
+if ((${#APPIMAGES[@]} == 0)); then
+  echo "No AppImages selected."
+  exit 1
+fi
+
+for appimage in "${APPIMAGES[@]}"; do
+  install_appimage "$appimage"
+done

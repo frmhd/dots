@@ -1,0 +1,90 @@
+#!/bin/bash
+
+set -euo pipefail
+
+APPLICATIONS_DIR="$HOME/Applications"
+DESKTOP_DIR="$HOME/.local/share/applications"
+ICON_DIR="$HOME/.local/share/applications/icons"
+
+is_appimage_desktop() {
+  local file="$1"
+  grep -q '^X-AppImage-Install=true' "$file" 2>/dev/null
+}
+
+desktop_app_id() {
+  basename "$1" .desktop
+}
+
+desktop_appimage_path() {
+  local file="$1"
+  local path
+  path=$(grep -m1 '^X-AppImage-Path=' "$file" | cut -d= -f2- || true)
+  if [[ -n "$path" && -f "$path" ]]; then
+    echo "$path"
+    return
+  fi
+  path=$(grep -m1 '^Exec=' "$file" | cut -d= -f2- | awk '{print $1}' || true)
+  echo "$path"
+}
+
+remove_appimage() {
+  local app_id="$1"
+  local desktop_file="$DESKTOP_DIR/$app_id.desktop"
+
+  if [[ ! -f "$desktop_file" ]]; then
+    echo "AppImage install not found: $app_id" >&2
+    return 1
+  fi
+
+  if ! is_appimage_desktop "$desktop_file"; then
+    echo "Not an appimage-install desktop entry: $app_id" >&2
+    return 1
+  fi
+
+  local appimage_path
+  appimage_path=$(desktop_appimage_path "$desktop_file")
+
+  rm -f "$desktop_file"
+  rm -f "$ICON_DIR/$app_id.png" "$ICON_DIR/$app_id.svg" "$ICON_DIR/$app_id.xpm"
+
+  if [[ -n "$appimage_path" && -f "$appimage_path" ]]; then
+    rm -f "$appimage_path"
+    echo "Removed $app_id ($appimage_path)"
+  else
+    echo "Removed $app_id (desktop entry only; AppImage binary not found)"
+  fi
+}
+
+APP_IDS=()
+
+if [[ "$#" -eq 0 ]]; then
+  while IFS= read -r -d '' file; do
+    if is_appimage_desktop "$file"; then
+      APP_IDS+=("$(desktop_app_id "$file")")
+    fi
+  done < <(find "$DESKTOP_DIR" -maxdepth 1 -name '*.desktop' -print0 2>/dev/null || true)
+
+  if ((${#APP_IDS[@]} == 0)); then
+    echo "No installed AppImages found."
+    exit 1
+  fi
+
+  IFS=$'\n' SORTED_APP_IDS=($(sort <<<"${APP_IDS[*]}"))
+  unset IFS
+  SELECTED=$(gum choose --no-limit --header "Select AppImages to remove..." --selected-prefix="✗ " "${SORTED_APP_IDS[@]}")
+  APP_IDS=()
+  while IFS= read -r line; do
+    [[ -n "$line" ]] && APP_IDS+=("$line")
+  done <<<"$SELECTED"
+else
+  APP_IDS=("$@")
+fi
+
+if ((${#APP_IDS[@]} == 0)); then
+  echo "You must select at least one AppImage to remove."
+  exit 1
+fi
+
+for app_id in "${APP_IDS[@]}"; do
+  remove_appimage "$app_id"
+done

@@ -24,10 +24,10 @@ layer-rule {
 
     shadow {
         on
-        softness 40
-        spread 5
-        offset x=0 y=5
+        softness 15
+        spread 0
+        offset x=0 y=0
         draw-behind-window true
-        color "#00000064"
+        color "#00000030"
     }
 }

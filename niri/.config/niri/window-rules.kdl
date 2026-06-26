@@ -141,6 +141,15 @@ window-rule {
 }
 
 window-rule {
+    match app-id=r#"^org\.center\.float"#
+    open-floating true
+
+    // default-floating-position x=40 y=8 relative-to="top-right"
+    default-column-width { fixed 600; }
+    default-window-height { fixed 300; }
+}
+
+window-rule {
     match app-id=r#"^Handy$"#
     match title="^Recording$"
     open-floating true
@@ -161,10 +170,10 @@ window-rule {
 
     shadow {
         on
-        softness 40
-        spread 5
-        offset x=0 y=5
+        softness 15
+        spread 0
+        offset x=0 y=0
         draw-behind-window true
-        color "#00000064"
+        color "#00000030"
     }
 }

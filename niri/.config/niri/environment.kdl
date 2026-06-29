@@ -1,6 +1,6 @@
 // Environment variables configuration
 environment {
-    // ZED_WINDOW_DECORATIONS "server"
+    ZED_WINDOW_DECORATIONS "server"
 
     // Улучшает рендеринг в Java-приложениях (например, JetBrains IDE)
     _JAVA_OPTIONS "-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"

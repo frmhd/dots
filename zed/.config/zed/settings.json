@@ -29,7 +29,7 @@
   },
   "git_panel": {
     "dock": "left",
-    "tree_view": true,
+    "tree_view": false,
   },
   "agent": {
     "default_width": 700,
@@ -228,7 +228,7 @@
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "theme": {
     "mode": "system",
-    "dark": "Gruvbox Dark",
+    "dark": "One Dark",
     "light": "One Light",
   },
 }

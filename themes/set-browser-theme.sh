@@ -34,5 +34,5 @@ else
     theme_hex_color="#1c2027"
 fi
 
-# apply_browser_theme chromium "$chromium_policy_dir"
+apply_browser_theme chromium "$chromium_policy_dir"
 # apply_browser_theme brave "$brave_policy_dir"

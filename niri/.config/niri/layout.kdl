@@ -17,12 +17,12 @@ layout {
     // gaps 8
 
     struts {
-        left 0
-        right 0
-        top 0
-        bottom 0
+        left 36
+        right 36
+        top 8
+        bottom 8
     }
-    gaps 2
+    gaps 16
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -79,7 +79,7 @@ layout {
         // If you enable the border, you probably want to disable the focus ring.
         on
 
-        width 2
+        width 1
         // active-color "#100f0f"
         // inactive-color "#505050"
 

@@ -1,5 +1,5 @@
 # Add deno completions to search path
-if [[ ":$FPATH:" != *":$HOME/.zsh/completions:"* ]]; then export FPATH="$HOME/.zsh/completions:$FPATH"; fi
+# if [[ ":$FPATH:" != *":$HOME/.zsh/completions:"* ]]; then export FPATH="$HOME/.zsh/completions:$FPATH"; fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -11,7 +11,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
-ZSH_THEME=""
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -110,24 +110,14 @@ source <(fzf --zsh)
 
 export PATH=$HOME/.local/bin:$PATH
 
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# # bun completions
+# [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-export OPENCODE_EXPERIMENTAL_PLAN_MODE=1
-export OPENCODE_EXPERIMENTAL_MARKDOWN=1
-export OPENCODE_DISABLE_CHANNEL_DB=1
-
-export GEMINI_FORCE_FILE_STORAGE=true
+# # bun
+# export BUN_INSTALL="$HOME/.bun"
+# export PATH="$BUN_INSTALL/bin:$PATH"
 
 export DOTS_DIR="${DOTS_DIR:-$HOME/dev/system/dots}"
 alias zdots="zed $DOTS_DIR"
@@ -160,5 +150,20 @@ export PATH=$HOME/.opencode/bin:$PATH
 
 
 # Added by Antigravity CLI installer
-export PATH="$HOME/.local/bin:$PATH"
-. "$HOME/.deno/env"
+# export PATH="$HOME/.local/bin:$PATH"
+# . "$HOME/.deno/env"
+
+# pnpm
+export PNPM_HOME="/home/frmhd/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+
+# Show hostname in prompt when connected via SSH
+if [[ -n $SSH_CONNECTION ]]; then
+  PROMPT="%F{yellow}%m%f $PROMPT"
+fi
+stty -ixon
+alias gdiff="GIT_PAGER=cat git diff --stat"

@@ -8,12 +8,10 @@ layer-rule {
 layer-rule {
     match namespace="waybar"
 
-    opacity 0.9
+    opacity 1.0
     background-effect {
         // xray true
-        blur true
-        noise 0.05
-        saturation 1
+        blur false
     }
 }
 

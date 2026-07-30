@@ -7,6 +7,23 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "lsp": {
+    "vtsls": {
+      "settings": {
+        "typescript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always"
+          }
+        },
+        "javascript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always"
+          }
+        }
+      },
+      "enable_lsp_tasks": true
+    }
+  },
   "vim_mode": false,
   "feature_flags": {
     "acp-beta": "on",
@@ -28,6 +45,7 @@
     "dock": "left",
   },
   "git_panel": {
+    "group_by": "staging",
     "dock": "left",
     "tree_view": false,
   },
@@ -85,7 +103,8 @@
     },
     "opencode": {
       "default_config_options": {
-        "model": "opencode/deepseek-v4-flash-free",
+        "mode": "build",
+        "model": "opencode-go/deepseek-v4-pro",
         "effort": "max",
       },
       "favorite_config_option_values": {
@@ -114,7 +133,7 @@
         ],
       },
       "default_config_options": {
-        "model": "{\"provider\":\"cursor\",\"id\":\"composer-2.5\"}",
+        "model": "{\"provider\":\"deepseek\",\"id\":\"deepseek-v4-pro\"}",
         "thinking_level": "xhigh",
       },
       "type": "custom",

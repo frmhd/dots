@@ -3,7 +3,6 @@
 @define-color background #1a1b26;*/
 
 * {
-    background-color: @background;
     color: @foreground;
 
     border: none;
@@ -11,6 +10,10 @@
     min-height: 0;
     font-family: "JetBrainsMono Nerd Font";
     font-size: 12px;
+}
+
+#waybar {
+    background-color: alpha(@background, 0.3);
 }
 
 .modules-left {

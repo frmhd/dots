@@ -122,6 +122,69 @@ else
     echo "[set-theme] pi theme not changed: settings file or jq not found"
 fi
 
+# Keep Hunk and Herdr on their preferred light/dark themes.
+if [[ -f "$current_theme_path/light.mode" ]]; then
+    hunk_theme="github-light"
+    herdr_theme="solarized-light"
+    lazygit_selection="#d8dee4"
+else
+    hunk_theme="github-dark"
+    herdr_theme="tokyo-night"
+    lazygit_selection="#283457"
+fi
+
+hunk_config="$HOME/.config/hunk/config.toml"
+mkdir -p "$(dirname "$hunk_config")"
+if [[ -f "$hunk_config" ]] && grep -qE '^[[:space:]]*theme[[:space:]]*=' "$hunk_config"; then
+    sed -i -E "s|^[[:space:]]*theme[[:space:]]*=.*|theme = \"$hunk_theme\"|" "$hunk_config"
+else
+    { printf 'theme = "%s"\n' "$hunk_theme"; [[ -f "$hunk_config" ]] && cat "$hunk_config"; } > "$hunk_config.tmp"
+    mv "$hunk_config.tmp" "$hunk_config"
+fi
+
+herdr_config="$HOME/.config/herdr/config.toml"
+mkdir -p "$(dirname "$herdr_config")"
+if [[ ! -f "$herdr_config" ]]; then
+    printf '[theme]\nname = "%s"\nauto_switch = false\n' "$herdr_theme" > "$herdr_config"
+else
+    awk -v theme="$herdr_theme" '
+        BEGIN { in_theme = 0; found_section = 0; set_name = 0 }
+        /^\[theme\][[:space:]]*$/ { in_theme = 1; found_section = 1; print; next }
+        /^\[/ {
+            if (in_theme && !set_name) { print "name = \"" theme "\""; set_name = 1 }
+            in_theme = 0
+        }
+        in_theme && /^[[:space:]]*name[[:space:]]*=/ {
+            print "name = \"" theme "\""
+            set_name = 1
+            next
+        }
+        { print }
+        END {
+            if (in_theme && !set_name) print "name = \"" theme "\""
+            if (!found_section) print "\n[theme]\nname = \"" theme "\""
+        }
+    ' "$herdr_config" > "$herdr_config.tmp" && mv "$herdr_config.tmp" "$herdr_config"
+fi
+
+if command -v herdr &>/dev/null; then
+    herdr server reload-config 2>/dev/null || true
+fi
+
+lazygit_config="$HOME/.config/lazygit/config.yml"
+mkdir -p "$(dirname "$lazygit_config")"
+if grep -q 'managed by themes/set-theme' "$lazygit_config" 2>/dev/null; then
+    sed -i -E "s|^([[:space:]]*selectedLineBgColor:).*# managed by themes/set-theme$|\1 [\"$lazygit_selection\"] # managed by themes/set-theme|" "$lazygit_config"
+elif [[ ! -s "$lazygit_config" ]]; then
+    cat > "$lazygit_config" <<EOF
+gui:
+  theme:
+    selectedLineBgColor: ["$lazygit_selection"] # managed by themes/set-theme
+EOF
+else
+    echo "[set-theme] lazygit theme not changed: config has no managed selection color"
+fi
+
 # Restart affected applications
 killall -SIGUSR2 waybar 2>/dev/null || true
 

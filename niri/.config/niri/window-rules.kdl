@@ -124,11 +124,11 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"^org\.gnome\.Weather$"#
+    match app-id=r#"^io\.github\.amit9838\.mousam$"#
 
     open-floating true
     default-column-width { fixed 1022; }
-    default-window-height { fixed 590; }
+    default-window-height { fixed 768; }
 }
 
 window-rule {

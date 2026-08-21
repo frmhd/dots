@@ -132,6 +132,15 @@ window-rule {
 }
 
 window-rule {
+    match app-id=r#"^brave-translate\.google\.com__-Default$"#
+    open-floating true
+
+    default-column-width { fixed 1186; }
+    default-window-height { fixed 759; }
+    default-floating-position x=607 y=308 relative-to="top-left"
+}
+
+window-rule {
     match app-id=r#"^org\.float"#
     open-floating true
 

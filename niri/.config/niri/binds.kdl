@@ -20,7 +20,7 @@ binds {
     Mod+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+T hotkey-overlay-title="Translator" { spawn-sh "exec alacritty --class 'org.center.float' -e sh -c 'frmhd-translator -i \"$(wl-paste --primary)\"'"; }
     Mod+Alt+T hotkey-overlay-title="Translator" { spawn-sh "exec alacritty --class 'org.center.float' -e frmhd-translator"; }
-    Mod+Shift+T hotkey-overlay-title="Themes menu" { spawn-sh "$HOME/dev/system/dots/themes/theme-picker.sh"; }
+    Mod+Ctrl+T hotkey-overlay-title="Themes menu" { spawn-sh "$HOME/dev/system/dots/themes/theme-picker.sh"; }
     Mod+Scroll_Lock hotkey-overlay-title="Toggle Handy transcription" { spawn-sh "$HOME/Applications/Handy_0.8.3_amd64.AppImage --toggle-transcription"; }
     Mod+Ctrl+Scroll_Lock hotkey-overlay-title="Toggle Handy transcription (with post-process)" { spawn-sh "$HOME/Applications/Handy_0.8.3_amd64.AppImage --toggle-post-process"; }
     Mod+B hotkey-overlay-title="Browser menu" { spawn-sh "$HOME/dev/system/dots/themes/set-next-bg.sh"; }
@@ -293,5 +293,7 @@ binds {
     Mod+Shift+A { spawn "brave" "--app=https://google.com/ai" "--profile-directory=Default"; }
     Mod+Shift+G { spawn "brave" "--app=https://gemini.google.com" "--profile-directory=Default"; }
     Mod+Shift+X { spawn "brave" "--app=https://x.com" "--profile-directory=Default"; }
+    Mod+Shift+T { spawn-sh "exec \"$HOME/.config/niri/google-translate.sh\" --paste"; }
+    Mod+Alt+Shift+T { spawn-sh "exec \"$HOME/.config/niri/google-translate.sh\""; }
     Mod+Shift+M { spawn "brave" "--app=https://meet.google.com" "--profile-directory=Profile 1"; }
 }

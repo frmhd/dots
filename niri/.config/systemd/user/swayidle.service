@@ -1,0 +1,13 @@
+[Unit]
+Description=Idle manager for Niri
+PartOf=niri.service
+After=niri.service
+
+[Service]
+Type=simple
+ExecStart=%h/.config/niri/idle.sh minimal
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=niri.service

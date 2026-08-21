@@ -1,0 +1,13 @@
+[Unit]
+Description=Wayland wallpaper
+PartOf=niri.service
+After=niri.service
+
+[Service]
+Type=simple
+ExecStart=%h/.config/niri/swaybg.sh
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=niri.service

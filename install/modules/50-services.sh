@@ -4,6 +4,25 @@
 
 log_header "50" "System services..."
 
+# Enable graphical-session user services
+USER_SERVICES=(
+    waybar.service
+    swayosd.service
+    swaybg.service
+    swayidle.service
+    wlsunset.service
+)
+
+systemctl --user daemon-reload
+for service in "${USER_SERVICES[@]}"; do
+    if systemctl --user cat "$service" &>/dev/null; then
+        systemctl --user enable "$service"
+        log_ok "$service enabled"
+    else
+        log_warn "$service not found"
+    fi
+done
+
 # Enable ly display manager
 if systemctl list-unit-files | grep -q "^ly@\\.service"; then
     sudo systemctl enable ly@tty2.service

@@ -1,0 +1,13 @@
+[Unit]
+Description=Wayland night light
+PartOf=niri.service
+After=niri.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/wlsunset -l 41.6 -L 41.6 -d 1800 -t 5000
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=niri.service

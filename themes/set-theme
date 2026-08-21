@@ -196,8 +196,7 @@ touch ~/.config/btop/themes/current.theme
 # Restart btop if running
 pkill -SIGUSR2 btop 2>/dev/null || true
 
-pkill swayosd-server 2>/dev/null || true
-swayosd-server &
+systemctl --user restart swayosd.service
 makoctl reload
 
 "$script_dir/set-browser-theme.sh"

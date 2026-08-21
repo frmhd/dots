@@ -1,0 +1,13 @@
+[Unit]
+Description=SwayOSD server
+PartOf=niri.service
+After=niri.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/swayosd-server
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=niri.service

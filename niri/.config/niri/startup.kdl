@@ -1,9 +1,5 @@
 // Startup applications
+// Long-running session services are managed by systemd user units.
 
-spawn-at-startup "waybar"
-spawn-at-startup "swayosd-server"
-spawn-sh-at-startup "exec swaybg -i \"$HOME/.config/omarchy/current/background\" -m fill"
-spawn-sh-at-startup "exec \"$HOME/.config/niri/idle.sh\" minimal"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
-spawn-at-startup "wlsunset" "-l" "41.6" "-L" "41.6" "-d" "1800" "-t" "5000"
 spawn-sh-at-startup "niri-float-sticky -title \"Picture in picture\""

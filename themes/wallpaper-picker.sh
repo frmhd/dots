@@ -7,5 +7,5 @@ wall=$(find "$HOME/Pictures/walls" -type f -print | while IFS= read -r path; do
 done | fuzzel --dmenu --with-nth=1 --accept-nth=2)
 [ -n "$wall" ] || exit 0
 
-pkill swaybg
-exec swaybg -i "$wall" -m fill
+ln -nsf "$wall" "$HOME/.config/omarchy/current/background"
+systemctl --user restart swaybg.service

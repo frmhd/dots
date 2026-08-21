@@ -159,9 +159,9 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"^Handy$"#
-    match title="^Recording$"
+    match app-id=r#"^Handy$"# title="^Recording$"
     open-floating true
+    open-focused false
 
     default-column-width { fixed 100; }
     default-window-height { fixed 40; }

@@ -1,0 +1,16 @@
+// Recent windows switcher (Alt-Tab style), since niri 25.11.
+// Defining binds here removes all default binds (Alt+Tab, Mod+Tab, ...),
+// so add everything you want to keep.
+//
+// scope="workspace" preselects the workspace scope when the switcher opens.
+// Inside the switcher: A/W/O select scope, S cycles scopes, Esc cancels, Enter confirms.
+recent-windows {
+    binds {
+        Alt+Tab         { next-window     scope="all"; }
+        Alt+Shift+Tab   { previous-window scope="all"; }
+        Alt+grave       { next-window     scope="all" filter="app-id"; }
+        Alt+Shift+grave { previous-window scope="all" filter="app-id"; }
+        Super+Tab       { next-window     scope="workspace"; }
+        Super+Shift+Tab { previous-window scope="workspace"; }
+    }
+}

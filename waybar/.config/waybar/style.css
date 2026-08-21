@@ -13,7 +13,7 @@
 }
 
 #waybar {
-    background-color: alpha(@background, 0.3);
+    background-color: alpha(@background, 0.8);
 }
 
 .modules-left {
@@ -73,6 +73,12 @@
 
 tooltip {
     padding: 2px;
+    background-color: @background;
+    color: @foreground;
+}
+
+tooltip label {
+    color: @foreground;
 }
 
 #custom-update {

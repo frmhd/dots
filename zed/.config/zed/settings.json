@@ -28,7 +28,7 @@
   "feature_flags": {
     "acp-beta": "on",
   },
-  "diff_view_style": "unified",
+  "diff_view_style": "split",
   "cli_default_open_behavior": "existing_window",
   "icon_theme": {
     "mode": "system",
@@ -47,7 +47,7 @@
   "git_panel": {
     "group_by": "staging",
     "dock": "left",
-    "tree_view": false,
+    "tree_view": true,
   },
   "agent": {
     "default_width": 700,
@@ -60,8 +60,8 @@
     "dock": "right",
     "commit_message_instructions": "You are a commit message generator. Follow the Conventional Commits specification: <type>[optional scope]: <description> [optional body] [optional footer(s)] Rules: - Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert - Description: imperative mood, lowercase, no period, max 72 chars - Add ! after type/scope for breaking changes, or BREAKING CHANGE: footer - Body: explain what and why, wrap at 72 chars - Output only the commit message, no preamble or quotes",
     "commit_message_model": {
-      "provider": "opencode",
-      "model": "deepseek-v4-flash-free",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
       "enable_thinking": true,
       "speed": "standard",
     },
@@ -83,8 +83,8 @@
     "single_file_review": true,
     "default_model": {
       "effort": "max",
-      "provider": "deepseek",
-      "model": "deepseek-v4-pro",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
       "enable_thinking": true,
     },
     "favorite_models": [
@@ -97,48 +97,23 @@
     "model_parameters": [],
   },
   "agent_servers": {
-    "Cursor": {
-      "type": "custom",
-      "command": "/home/frmhd/dev/pets/cursor-sdk-acp-adapter/dist/cli.mjs",
-    },
-    "opencode": {
-      "default_config_options": {
-        "mode": "build",
-        "model": "opencode-go/deepseek-v4-pro",
-        "effort": "max",
-      },
-      "favorite_config_option_values": {
-        "model": ["opencode/deepseek-v4-flash-free", "kimi-for-coding/k2p6"],
-      },
-      "type": "registry",
-      "env": {
-        // "OPENCODE_ACP_NEXT": "1",
-      },
-    },
-    "gemini": {
-      "default_model": "gemini-3-flash-preview",
-      "type": "registry",
-    },
     "Pi": {
       "favorite_config_option_values": {
         "model": [
           "gpt-5.4",
           "{\"provider\":\"github-copilot\",\"id\":\"gpt-5.4\"}",
-          "{\"provider\":\"opencode-go\",\"id\":\"kimi-k2.6\"}",
           "{\"provider\":\"kimi-coding\",\"id\":\"k2p6\"}",
           "{\"provider\":\"opencode-go\",\"id\":\"deepseek-v4-flash\"}",
-          "{\"provider\":\"opencode-go\",\"id\":\"deepseek-v4-pro\"}",
-          "{\"provider\":\"openai-codex\",\"id\":\"gpt-5.5\"}",
-          "{\"provider\":\"opencode\",\"id\":\"deepseek-v4-flash-free\"}",
+          "{\"provider\":\"openai-codex\",\"id\":\"gpt-5.6-sol\"}"
         ],
       },
       "default_config_options": {
-        "model": "{\"provider\":\"deepseek\",\"id\":\"deepseek-v4-pro\"}",
+        "model": "{\"provider\":\"openai-codex\",\"id\":\"gpt-5.6-luna\"}",
         "thinking_level": "xhigh",
       },
       "type": "custom",
       "command": "node",
-      "args": ["/home/frmhd/dev/pets/pi-sdk-acp-adapter/dist/cli.mjs"],
+      "args": ["/home/frmhd/dev/pets/pi/pi-sdk-acp-adapter/dist/cli.mjs"],
       "env": {
         "PI_ACP_SMALL_MODEL": "opencode/deepseek-v4-flash-free",
         "PI_ACP_LOCAL_TOOLS": "1",

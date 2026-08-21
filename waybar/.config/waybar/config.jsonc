@@ -78,14 +78,7 @@
     "format": "{:%A, %d %b %Y | %H:%M}",
     "format-alt": "{:L%d %B W%V %Y}",
     "tooltip": false,
-    "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select",
-  },
-  "custom/calendar": {
-    "format": "{}",
-    "return-type": "json",
-    "exec": "~/.config/waybar/scripts/calendar.sh",
-    "interval": 300,
-    "on-click": "xdg-open $(~/.config/waybar/scripts/calendar.sh | jq -r .alt)",
+    "on-click-right": "flatpak run io.github.amit9838.mousam",
   },
   "network": {
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],

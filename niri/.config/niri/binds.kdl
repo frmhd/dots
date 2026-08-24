@@ -289,11 +289,11 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 
-    Mod+Shift+B { spawn "brave"; }
-    Mod+Shift+A { spawn "brave" "--app=https://google.com/ai" "--profile-directory=Default"; }
-    Mod+Shift+G { spawn "brave" "--app=https://gemini.google.com" "--profile-directory=Default"; }
-    Mod+Shift+X { spawn "brave" "--app=https://x.com" "--profile-directory=Default"; }
+    Mod+Shift+B { spawn "firefox"; }
+    Mod+Shift+A { spawn "firefox" "--new-window" "https://google.com/ai"; }
+    Mod+Shift+G { spawn "firefox" "--new-window" "https://gemini.google.com"; }
+    Mod+Shift+X { spawn "firefox" "--new-window" "https://x.com"; }
     Mod+Shift+T { spawn-sh "exec \"$HOME/.config/niri/google-translate.sh\" --paste"; }
     Mod+Alt+Shift+T { spawn-sh "exec \"$HOME/.config/niri/google-translate.sh\""; }
-    Mod+Shift+M { spawn "brave" "--app=https://meet.google.com" "--profile-directory=Profile 1"; }
+    Mod+Shift+M { spawn "firefox" "--new-window" "https://meet.google.com"; }
 }

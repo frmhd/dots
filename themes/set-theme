@@ -125,11 +125,11 @@ fi
 # Keep Hunk and Herdr on their preferred light/dark themes.
 if [[ -f "$current_theme_path/light.mode" ]]; then
     hunk_theme="github-light"
-    herdr_theme="solarized-light"
+    herdr_theme="one-light"
     lazygit_selection="#d8dee4"
 else
     hunk_theme="github-dark"
-    herdr_theme="tokyo-night"
+    herdr_theme="gruvbox"
     lazygit_selection="#283457"
 fi
 
@@ -169,6 +169,47 @@ fi
 
 if command -v herdr &>/dev/null; then
     herdr server reload-config 2>/dev/null || true
+fi
+
+# Return 0 if a pi agent's input editor already contains unsent text.
+# pi renders the editor as the rows bracketed by the bottom-most two
+# full-width rule lines; detect draft text by checking that region.
+agent_editor_has_text() {
+    local pane_id="$1"
+    local screen
+    screen=$(herdr agent read "$pane_id" 2>/dev/null | sed -e 's/\x1b\[[0-9;?]*[a-zA-Z]//g' -e 's/\x1b\][^\a]*\a//g') || return 0
+    local -a lines
+    mapfile -t lines <<< "$screen"
+    local i last_sep=-1 prev_sep=-1
+    for ((i=${#lines[@]}-1; i>=0; i--)); do
+        if [[ "${lines[i]}" =~ ^[-─]{20,}$ ]]; then
+            if (( last_sep == -1 )); then
+                last_sep=$i
+            else
+                prev_sep=$i
+                break
+            fi
+        fi
+    done
+    # No bracketing rules found: assume draft and skip the reload
+    (( last_sep == -1 || prev_sep == -1 )) && return 0
+    for ((i=prev_sep+1; i<last_sep; i++)); do
+        [[ -n "${lines[i]//[[:space:]]/}" ]] && return 0
+    done
+    return 1
+}
+
+# Reload idle pi agents running in herdr so they pick up the new theme.
+# Skip agents whose editor already has unsent text, so the "/reload"
+# string isn't appended to a draft the user is typing.
+if command -v herdr &>/dev/null && command -v jq &>/dev/null; then
+    for p in $(herdr agent list 2>/dev/null | jq -r '.result.agents[] | select(.agent=="pi" and .agent_status=="idle") | .pane_id' 2>/dev/null); do
+        if agent_editor_has_text "$p"; then
+            echo "[set-theme] skip $p: input editor has unsent text"
+        else
+            herdr agent prompt "$p" "/reload" 2>/dev/null || true
+        fi
+    done
 fi
 
 lazygit_config="$HOME/.config/lazygit/config.yml"

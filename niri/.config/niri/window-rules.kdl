@@ -28,6 +28,13 @@ window-rule {
 }
 
 window-rule {
+    match app-id=r#"firefox$"#
+    open-maximized false
+    open-maximized-to-edges false
+    open-fullscreen false
+}
+
+window-rule {
 
     // is sharing your screen|window|something else
     match title="^meet.google.com is sharing"

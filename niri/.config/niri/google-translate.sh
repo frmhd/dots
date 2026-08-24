@@ -3,12 +3,22 @@
 set -eu
 
 url='https://translate.google.com/'
+browser=firefox
+
+launch_browser() {
+    if [ "${browser##*/}" = firefox ]; then
+        "$browser" --new-window "$url"
+    else
+        "$browser" --app="$url" --profile-directory=Default
+    fi
+}
 
 if [ "${1:-}" != '--paste' ]; then
-    exec brave --app="$url" --profile-directory=Default
+    launch_browser
+    exit
 fi
 
-brave --app="$url" --profile-directory=Default &
+launch_browser &
 sleep 2
 
 if primary=$(wl-paste --primary --no-newline 2>/dev/null) && [ -n "$primary" ]; then

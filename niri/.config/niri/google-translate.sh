@@ -7,7 +7,7 @@ browser=firefox
 
 launch_browser() {
     if [ "${browser##*/}" = firefox ]; then
-        "$browser" --new-window "$url"
+        "$browser" -taskbar-tab 0 -new-window "$url"
     else
         "$browser" --app="$url" --profile-directory=Default
     fi
@@ -25,6 +25,4 @@ if primary=$(wl-paste --primary --no-newline 2>/dev/null) && [ -n "$primary" ]; 
     printf '%s' "$primary" | wl-copy
     wtype -M ctrl -k v -m ctrl
     wl-copy --clear --primary
-elif clipboard=$(wl-paste --no-newline 2>/dev/null) && [ -n "$clipboard" ]; then
-    wtype -M ctrl -k v -m ctrl
 fi
